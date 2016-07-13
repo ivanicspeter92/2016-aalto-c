@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://check.sourceforge.net/xml/check_unittest.xslt"?>
+<testsuites xmlns="http://check.sourceforge.net/ns">
+  <datetime>2016-07-13 19:13:45</datetime>
+  <suite>
+    <title>Test-02-intro</title>
+    <test result="failure">
+      <path>.</path>
+      <fn>test_source.c:23</fn>
+      <id>test_three_lines</id>
+      <iteration>0</iteration>
+      <duration>-1.000000</duration>
+      <description>test_three_lines</description>
+      <message>[Task 1.1] Your output:
+January
+February
+March
+April
+
+Reference output:
+January
+February
+March
+
+Reason: your output is longer than expected: character: &apos;A&apos;, position: 1, line: 4
+
+</message>
+    </test>
+    <test result="failure">
+      <path>.</path>
+      <fn>test_source.c:42</fn>
+      <id>test_fix_types</id>
+      <iteration>0</iteration>
+      <duration>-1.000000</duration>
+      <description>test_fix_types</description>
+      <message>[Task 1.2] Your output:
+0.0  5  0
+
+Reference output:
+5.3  8000000  66666
+
+Reason: position: 1, line: 1, your output: &apos;0&apos; , expected: &apos;5&apos;
+
+</message>
+    </test>
+  </suite>
+  <duration>0.003980</duration>
+</testsuites>
