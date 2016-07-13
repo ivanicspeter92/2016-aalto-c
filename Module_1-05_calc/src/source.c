@@ -22,5 +22,18 @@ void print_sum(int a, int b) {
 }
 
 void simple_math(void) {
+    float a, b;
+    char operator;
     
+    if (scanf("%f %c %f", &a, &operator, &b) == 3) {
+        switch (operator) {
+            case '+': printf("%.1f", a + b); break;
+            case '-': printf("%.1f", a - b); break;
+            case '*': printf("%.1f", a * b); break;
+            case '/': printf("%.1f", a / b); break;
+            default: printf("ERR");
+        }
+    } else {
+        printf("ERR");
+    }
 }
