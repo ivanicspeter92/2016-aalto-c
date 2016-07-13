@@ -25,15 +25,27 @@ void simple_math(void) {
     float a, b;
     char operator;
     
-    if (scanf("%f %c %f", &a, &operator, &b) == 3) {
-        switch (operator) {
-            case '+': printf("%.1f", a + b); break;
-            case '-': printf("%.1f", a - b); break;
-            case '*': printf("%.1f", a * b); break;
-            case '/': printf("%.1f", a / b); break;
-            default: printf("ERR");
-        }
+    if (scanf("%f %c %f", &a, &operator, &b) == 3) { // checking if scanning both numbers and the operator succeeded
+        print_result(a, b, operator);
     } else {
         printf("ERR");
+    }
+}
+
+/**
+ * Performs the operation on the given parameters and prints the result on the console. Prints 'ERR' on the console if the operator is incorrect.
+ * 
+ * @param a
+ * @param b
+ * @param operator The character of the operator to be performed. Should be '+', '-', '/' or '*' character.
+ */
+void print_result(float a, float b, char operator) {
+    char* format = "%.1f";
+    switch (operator) {
+        case '+': printf(format, a + b); break;
+        case '-': printf(format, a - b); break;
+        case '*': printf(format, a * b); break;
+        case '/': printf(format, a / b); break;
+        default: printf("ERR");
     }
 }
