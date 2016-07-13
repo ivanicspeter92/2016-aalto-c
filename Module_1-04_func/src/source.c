@@ -6,7 +6,7 @@
  * @param a
  * @param b
  * @param c
- * @return The lenght of the vector as a double value. 
+ * @return The length of the vector as a double value. 
  */
 double vectorlength(double a, double b, double c) {
     double result = sqrt(a * a + b * b + c * c);
