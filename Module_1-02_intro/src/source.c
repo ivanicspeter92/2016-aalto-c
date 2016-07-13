@@ -3,8 +3,10 @@
 #include "source.h"
 
 
-void three_lines(void) 
-{
+void three_lines(void) {
+    printf("January\n");
+    printf("February\n");
+    printf("March\n");
 }
 
 
