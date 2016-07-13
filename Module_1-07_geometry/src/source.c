@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "source.h"
+#include <stdbool.h>
 
 void multi_table(unsigned int xsize, unsigned int ysize) {
     for(int i = 1; i <= ysize; i++) {
@@ -28,12 +29,16 @@ void draw_triangle(unsigned int size) {
     }
 }
 
-double distance(int x, int y)
-{
+double distance(int x, int y) {
     return sqrt(x * x + y * y);
 }
 
+bool is_in_circle(int x, int y, int radius) {
+    if (distance(x,y) <= radius) {
+        return true;
+    }
+    return false;
+}
 
-void draw_ball(unsigned int radius)
-{
+void draw_ball(unsigned int radius) {
 }
