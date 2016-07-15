@@ -34,11 +34,21 @@ double distance(int x, int y) {
 }
 
 bool is_in_circle(int x, int y, int radius) {
-    if (distance(x,y) <= radius) {
+    if (distance(x, y) <= radius) {
         return true;
     }
     return false;
 }
 
 void draw_ball(unsigned int radius) {
+    for (int y = radius * 2; y >= 0; y--) {
+        for(int x = 0; x <= radius * 2; x++) {
+            if (is_in_circle(x - radius, y - radius, radius) == true) {
+                printf("*");
+            } else {
+                printf(".");
+            }
+        }
+        printf("\n");
+    }
 }
