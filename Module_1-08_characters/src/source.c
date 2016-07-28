@@ -14,11 +14,7 @@ void ascii_chart(char min, char max) {
     for (int i = min; i <= max; i++) {
         printf(" %d 0x%x", i, i);
         
-        if (isprint(i) == 0) {
-            printf(" ?");
-        } else {
-            printf(" %c", i);
-        }
+        print_character_or_question_mark(i);
         
         if (tabulators % 4 == 0) {
             printf("\n");
@@ -28,6 +24,14 @@ void ascii_chart(char min, char max) {
             printf("\t");
         }
     }
+}
+
+void print_character_or_question_mark(int i) {
+    if (isprint(i) == 0) {
+            printf(" ?");
+        } else {
+            printf(" %c", i);
+        }
 }
 
 char get_character(int msg, unsigned int cc) {
