@@ -12,7 +12,7 @@ char *msgs[10] = {
 void ascii_chart(char min, char max) {
     int tabulators = 1;
     for (int i = min; i <= max; i++) {
-        printf(" %d 0x%x", i, i);
+        printf("%3d 0x%x", i, i);
         
         print_character_or_question_mark(i);
         
