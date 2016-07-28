@@ -45,6 +45,13 @@ char get_character(int msg, unsigned int cc) {
 }
 
 
-void secret_msg(int msg)
-{
+void secret_msg(int msg) {
+    int i = -1;
+    
+    char character;
+    while (character = get_character(msg, ++i)) {
+        if (character != 0) {
+            printf("%c", 158 - character);
+        }
+    } 
 }
