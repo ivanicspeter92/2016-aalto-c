@@ -82,8 +82,19 @@ int shoot(void) {
  * ships on the game map. It is assumed to be the same as in the call to
  * set_ships function.
  */
-int game_over(unsigned int num)
-{
-    (void) num;
-    return 0;  // replace this
+int game_over(unsigned int num) {
+    int sunkenshipfields = 0;
+    
+    for(int i = 0; i < ysize; i++) {
+        for (int j = 0; j < xsize; j++) {
+            if (is_ship(j, i) == '#') { // checking if a ship is sunken
+                sunkenshipfields++;
+            }
+        }
+    }
+    
+    if (sunkenshipfields / shiplen == num) { // checking if the sunken fields sum up to the number of ships
+        return 1;
+    }
+    return 0;
 }
