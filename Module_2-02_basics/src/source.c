@@ -15,11 +15,15 @@ void number_swap(int *a, int *b) {
  * Calculate the sum of integers in array starting at address <array>.
  * There will be <count> elements in array. Return the sum as return value.
  */
-int array_sum(int *array, int count)
-{
-    (void) array;
-    (void) count;
-    return 0;  // placeholder, replace with actual code
+int array_sum(int *array, int count) {
+    int sum = 0;
+    
+    for(int i = 0; i < count; i++) {
+        int value = *(array + i);
+        sum += value;
+    }
+    
+    return sum;
 }
 
 /* Array Reader */
