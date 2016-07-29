@@ -31,9 +31,15 @@ int array_sum(int *array, int count) {
  * vals: array to be filled 
  * n: maximum size of array
  * returns: number of values read */
-int array_reader(int *vals, int n)
-{
-    (void) vals;
-    (void) n;
-    return 0;  // placeholder, replace with actual code
+int array_reader(int *vals, int n) {
+    int count = 0;
+    int value;
+    
+    while (n > 0 && scanf("%d", &value) != 0) {
+        *(vals + count) = value;
+        n--;
+        count++;
+    }
+    
+    return count;
 }
