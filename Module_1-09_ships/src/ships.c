@@ -33,8 +33,17 @@ int getRandomY() {
 
 /* Task b: print the game field
  */
-void print_field(void)
-{
+void print_field(void) {
+    for(int i = 0; i < ysize; i++) {
+        for (int j = 0; j < xsize; j++) {
+            if (is_visible(j, i) == 0) {
+                printf("?");
+            } else {
+                printf("%c", is_ship(j, i));
+            }
+        }
+        printf("\n");
+    }
 }
 
 
