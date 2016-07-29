@@ -10,11 +10,26 @@ const unsigned int shiplen = 3;
 
 /* Task a: Place <num> ships on the game map.
  */
-void set_ships(unsigned int num)
-{
-    (void) num;
+void set_ships(unsigned int num) {
+    create_field();
+    while (num > 0) {
+        int x = getRandomX(), y = getRandomY();
+        
+        if (place_ship(x, y, 0) == 1) { // attempting to place the ship horizontally 
+            num--;
+        } else if (place_ship(x, y, 1) == 1) { // attempting to place the ship vertically 
+            num--;
+        }
+    }
 }
 
+int getRandomX() {
+    return rand() % xsize;
+}
+
+int getRandomY() {
+    return rand() % ysize;
+}
 
 /* Task b: print the game field
  */
