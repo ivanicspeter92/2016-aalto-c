@@ -5,10 +5,10 @@
 /* Number swap
  * Swap the content of integers add addresses a and b
  */
-void number_swap(int *a, int *b)
-{
-    (void) a;
-    (void) b;
+void number_swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b; 
+    *b = temp;
 }
 
 /* Array Sum
