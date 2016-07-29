@@ -7,20 +7,20 @@ const unsigned int xsize = 10;
 const unsigned int ysize = 10;
 const unsigned int shiplen = 3;
 
-int getRandomX() {
+int get_random_x() {
     return rand() % xsize;
 }
 
-int getRandomY() {
+int get_random_y() {
     return rand() % ysize;
 }
 
 
-bool isCorrectX(int x) {
+bool is_correct_x(int x) {
     return x >= 0 && x < xsize;
 }
 
-bool isCorrectY(int y) {
+bool is_correct_y(int y) {
     return y >= 0 && y < ysize;
 }
 
@@ -31,7 +31,7 @@ bool isCorrectY(int y) {
 void set_ships(unsigned int num) {
     create_field();
     while (num > 0) {
-        int x = getRandomX(), y = getRandomY();
+        int x = get_random_x(), y = get_random_y();
         
         if (place_ship(x, y, 0) == 1) { // attempting to place the ship horizontally 
             num--;
@@ -64,7 +64,7 @@ void print_field(void) {
 int shoot(void) {
     int x, y;
    
-    if (scanf("%d %d", &x, &y) != 0 && isCorrectX(x) && isCorrectY(y)) { // checking for valid user input
+    if (scanf("%d %d", &x, &y) != 0 && is_correct_x(x) && is_correct_y(y)) { // checking for valid user input
         checked(x, y);
         if (is_ship(x, y) == '.') {
             return 0;
@@ -74,7 +74,7 @@ int shoot(void) {
         }
     }
     
-    return -1;  // replace this
+    return -1;
 }
 
 /* Task d: Returns 1 if game is over (all ships are sunk), or 0 if there
