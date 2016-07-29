@@ -31,6 +31,9 @@
         <dependencyChecking>false</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99"/>
+      </flagsDictionary>
       <codeAssistance>
       </codeAssistance>
       <makefileType>
@@ -45,39 +48,46 @@
           <preBuildCommand></preBuildCommand>
         </preBuild>
       </makefileType>
-      <folder path="0/test">
+      <folder path="0/src">
         <cTool>
           <incDir>
-            <pElem>/usr/local/Cellar/check/0.9.11/include</pElem>
+            <pElem>src</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>_THREAD_SAFE</Elem>
-          </preprocessorList>
         </cTool>
       </folder>
       <item path="src/main.c" ex="false" tool="0" flavor2="3">
-        <cTool>
-          <preprocessorList>
-            <Elem>__STDC_VERSION__=199901L</Elem>
-          </preprocessorList>
+        <cTool flags="0">
         </cTool>
       </item>
       <item path="src/source.c" ex="false" tool="0" flavor2="3">
-        <cTool>
+        <cTool flags="0">
           <incDir>
-            <pElem>/usr/local/Cellar/check/0.9.11/include</pElem>
             <pElem>test</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>_THREAD_SAFE</Elem>
-          </preprocessorList>
         </cTool>
       </item>
       <item path="test/checkhelp.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+          <incDir>
+            <pElem>test</pElem>
+          </incDir>
+        </cTool>
       </item>
       <item path="test/test_source.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+          <incDir>
+            <pElem>/usr/local/Cellar/check/0.10.0/include</pElem>
+            <pElem>test</pElem>
+          </incDir>
+        </cTool>
       </item>
       <item path="test/tmc-check.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+          <incDir>
+            <pElem>/usr/local/Cellar/check/0.10.0/include</pElem>
+            <pElem>test</pElem>
+          </incDir>
+        </cTool>
       </item>
     </conf>
   </confs>

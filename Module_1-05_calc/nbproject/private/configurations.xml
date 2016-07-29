@@ -16,6 +16,14 @@
         <in>source.h</in>
       </df>
       <df name="test">
+        <df name="test.dSYM">
+          <df name="Contents">
+            <df name="Resources">
+              <df name="DWARF">
+              </df>
+            </df>
+          </df>
+        </df>
         <in>checkhelp.c</in>
         <in>test_source.c</in>
         <in>tmc-check.c</in>

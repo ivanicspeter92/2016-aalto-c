@@ -55,29 +55,39 @@
           </incDir>
         </cTool>
       </folder>
-      <folder path="0/test">
-        <cTool>
-          <incDir>
-            <pElem>/usr/local/Cellar/check/0.9.14/include</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>_THREAD_SAFE</Elem>
-          </preprocessorList>
-        </cTool>
-      </folder>
       <item path="src/main.c" ex="false" tool="0" flavor2="3">
         <cTool flags="0">
         </cTool>
       </item>
       <item path="src/source.c" ex="false" tool="0" flavor2="3">
         <cTool flags="0">
+          <incDir>
+            <pElem>test</pElem>
+          </incDir>
         </cTool>
       </item>
       <item path="test/checkhelp.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+          <incDir>
+            <pElem>test</pElem>
+          </incDir>
+        </cTool>
       </item>
       <item path="test/test_source.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+          <incDir>
+            <pElem>/usr/local/Cellar/check/0.10.0/include</pElem>
+            <pElem>test</pElem>
+          </incDir>
+        </cTool>
       </item>
       <item path="test/tmc-check.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+          <incDir>
+            <pElem>/usr/local/Cellar/check/0.10.0/include</pElem>
+            <pElem>test</pElem>
+          </incDir>
+        </cTool>
       </item>
     </conf>
   </confs>
