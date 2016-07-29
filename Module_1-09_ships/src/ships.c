@@ -1,10 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ships.h"
+#include <stdbool.h>
 
 const unsigned int xsize = 10;
 const unsigned int ysize = 10;
 const unsigned int shiplen = 3;
+
+int getRandomX() {
+    return rand() % xsize;
+}
+
+int getRandomY() {
+    return rand() % ysize;
+}
+
+
+bool isCorrectX(int x) {
+    return x >= 0 && x < xsize;
+}
+
+bool isCorrectY(int y) {
+    return y >= 0 && y < ysize;
+}
 
 /* implement these functions */
 
@@ -21,14 +39,6 @@ void set_ships(unsigned int num) {
             num--;
         }
     }
-}
-
-int getRandomX() {
-    return rand() % xsize;
-}
-
-int getRandomY() {
-    return rand() % ysize;
 }
 
 /* Task b: print the game field
@@ -51,8 +61,19 @@ void print_field(void) {
  * Returns -1 if user gave invalid input or coordinates, 0 if there was no ship
  * at the given location; and 1 if there was a ship hit at the location.
  */
-int shoot(void)
-{
+int shoot(void) {
+    int x, y;
+   
+    if (scanf("%d %d", &x, &y) != 0 && isCorrectX(x) && isCorrectY(y)) { // checking for valid user input
+        checked(x, y);
+        if (is_ship(x, y) == '.') {
+            return 0;
+        } else {
+            hit_ship(x, y);
+            return 1;
+        }
+    }
+    
     return -1;  // replace this
 }
 
