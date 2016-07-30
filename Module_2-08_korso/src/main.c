@@ -4,14 +4,27 @@
 
 int main()
 {
+    char orig[4][200] = { "yksi auto valui itsekseen ilman kuljettajaa makea alas",
+        "kaks",
+        "sleeping now zzzz tststs good night"};
     
-    /* Korsoroi */
-    char buf[100], dest[200];
-    do {
-        fgets(buf, 100, stdin);
-        korsoroi(dest, buf);
-        printf("korsoroi: %s\n", dest);
-    } while (strlen(buf) > 1);
+    char ref[4][200] = { "yxi auto valui niinku izexeen totanoin ilman kuljettajaa niinku makea alas",
+        "kax",
+        "sleeping now zzzz niinku zzz totanoin good night"};
+    
+    int count = 3;
+    
+    
+    char *buffer = malloc(200);
+    for (int i = 0; i < count; i++) {
+        memset(buffer, '#', 200);
+        buffer[0] = 0;
+        printf("%s\n", orig[i]);
+        korsoroi(buffer, orig[i]);
+        printf("%s\n", buffer);
+        buffer[199] = 0;
+    }
+    free(buffer);
     
     return 0;
 }
