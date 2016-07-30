@@ -16,10 +16,13 @@ void es_print(const char *s) {
 /* Parameters:
  * s: string to be evaluated
  * Returns: length of the string */
-unsigned int es_length(const char *s)
-{
-    (void) s;
-    return 0; // replace this
+unsigned int es_length(const char *s) {
+    int length = 0;
+    while (length < strlen(s) && *(s + length) != '#') {
+        length++;
+    }
+    
+    return length;
 }
 
 /* String copy */
