@@ -29,15 +29,11 @@ void korsoroi(char *dest, const char *src) {
             wordcound++;
         
             if (wordcound > 0 && wordcound % 3 == 0) {
-                for (int j = 0; j < strlen(niinku); j++) {
-                    *(dest + destination_length) = *(niinku + j);
-                    destination_length++;
-                }
+                strcpy(dest + destination_length, niinku);
+                destination_length += strlen(niinku);
             } else if (wordcound > 0 && wordcound % 4 == 0) {
-                for (int j = 0; j < strlen(totanoin); j++) {
-                    *(dest + destination_length) = *(totanoin + j);
-                    destination_length++;
-                }
+                strcpy(dest + destination_length, totanoin);
+                destination_length += strlen(totanoin);
             }
         }
     }
