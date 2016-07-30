@@ -53,9 +53,9 @@ int count_substr_model_solution(const char *str, const char *sub) {
     char *ptr;
     while (1) {
         ptr = strstr(str, sub);
-        if (ptr) {
+        if (ptr != NULL) { 
             count++;
-            str = ptr + 1;
+            str = ptr + 1; // changing the search string to the remaining after the first match
         } else {
             return count;
         }
