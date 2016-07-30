@@ -1,12 +1,16 @@
 #include "source.h"
-
+#include <stdlib.h>
 
 /* Print string array, last element is NULL */
 /* Parameters:
  * array: string array to be printed, each string on own line */
-void print_strarray(char *array[])
-{
-    (void) array;
+void print_strarray(char *array[]) {
+    int i = 0;
+    
+    while (*(array + i) != NULL) {
+        printf("%s\n", *(array + i));
+        i++;
+    }
 }
 
 /* Put strings from string separated by space to a string array */
