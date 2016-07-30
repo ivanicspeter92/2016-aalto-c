@@ -1,12 +1,15 @@
+#include <string.h>
+
 #include "source.h"
 
 
 /* Print string */
 /* Parameters:
  * s: string to be printed */
-void es_print(const char *s)
-{
-    (void) s;
+void es_print(const char *s) {
+    for (int i = 0; i < strlen(s) && *(s + i) != '#'; i++) {
+        printf("%c", *(s + i));
+    }
 }
 
 /* String length */
