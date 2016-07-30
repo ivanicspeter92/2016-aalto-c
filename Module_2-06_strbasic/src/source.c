@@ -43,3 +43,21 @@ int count_substr(const char *str, const char *sub) {
     
     return count;
 }
+
+/* Count Substring
+ * Count number of occurances of substring <sub> in string <str>,
+ * and return the count. Uses strstr() method.
+ */
+int count_substr_model_solution(const char *str, const char *sub) {
+    int count = 0;
+    char *ptr;
+    while (1) {
+        ptr = strstr(str, sub);
+        if (ptr) {
+            count++;
+            str = ptr + 1;
+        } else {
+            return count;
+        }
+    }
+}
