@@ -1,13 +1,14 @@
 #include <string.h>
-
 #include "source.h"
+#include "ctype.h"
 
+const char end_of_string_character = '#';
 
 /* Print string */
 /* Parameters:
  * s: string to be printed */
 void es_print(const char *s) {
-    for (int i = 0; i < strlen(s) && *(s + i) != '#'; i++) {
+    for (int i = 0; i < strlen(s) && *(s + i) != end_of_string_character; i++) {
         printf("%c", *(s + i));
     }
 }
@@ -18,7 +19,7 @@ void es_print(const char *s) {
  * Returns: length of the string */
 unsigned int es_length(const char *s) {
     int length = 0;
-    while (length < strlen(s) && *(s + length) != '#') {
+    while (length < strlen(s) && *(s + length) != end_of_string_character) {
         length++;
     }
     
@@ -34,11 +35,11 @@ unsigned int es_length(const char *s) {
 int es_copy(char *dst, const char *src) {
     int copied = 0;
     
-    while(copied < strlen(src) && *(src + copied) != '#') {
+    while(copied < strlen(src) && *(src + copied) != end_of_string_character) {
         *(dst + copied) = *(src + copied);
         copied++;
     }
-    *(dst + copied) = '#';
+    *(dst + copied) = end_of_string_character;
     
     return copied;
 }
@@ -49,9 +50,12 @@ int es_copy(char *dst, const char *src) {
  * c: character to be replaced by '#'
  * Returns: pointer to the character following the replaced character,
  *          NULL if end of string reached */
-char *es_token(char *s, char c)
-{
-    (void) s;
-    (void) c;
-    return NULL; // replace this
+char *es_token(char *s, char c) {
+    for (int i = 0; i < strlen(s) && *(s + i) != '#'; i++) {
+        if (*(s + i) == c) {
+            *(s + i) = end_of_string_character;
+            return (s + i + 1);
+        }
+    }
+    return NULL;
 }
