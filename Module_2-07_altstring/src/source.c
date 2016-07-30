@@ -51,7 +51,7 @@ int es_copy(char *dst, const char *src) {
  * Returns: pointer to the character following the replaced character,
  *          NULL if end of string reached */
 char *es_token(char *s, char c) {
-    for (int i = 0; i < strlen(s) && *(s + i) != '#'; i++) {
+    for (int i = 0; i < strlen(s) && *(s + i) != end_of_string_character; i++) {
         if (*(s + i) == c) {
             *(s + i) = end_of_string_character;
             return (s + i + 1);
