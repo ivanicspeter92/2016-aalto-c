@@ -31,11 +31,16 @@ unsigned int es_length(const char *s) {
  * src: original string
  * Returns: Number of characters copied
  */
-int es_copy(char *dst, const char *src)
-{
-    (void) dst;
-    (void) src;
-    return 0; // replace this
+int es_copy(char *dst, const char *src) {
+    int copied = 0;
+    
+    while(copied < strlen(src) && *(src + copied) != '#') {
+        *(dst + copied) = *(src + copied);
+        copied++;
+    }
+    *(dst + copied) = '#';
+    
+    return copied;
 }
 
 /* String tokenizer */
