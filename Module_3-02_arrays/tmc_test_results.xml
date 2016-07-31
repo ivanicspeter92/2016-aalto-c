@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://check.sourceforge.net/xml/check_unittest.xslt"?>
+<testsuites xmlns="http://check.sourceforge.net/ns">
+  <datetime>2016-07-31 12:57:23</datetime>
+  <suite>
+    <title>Test-02_arrays</title>
+    <test result="failure">
+      <path>.</path>
+      <fn>test_source.c:31</fn>
+      <id>test_dyn_reader</id>
+      <iteration>0</iteration>
+      <duration>-1.000000</duration>
+      <description>test_dyn_reader</description>
+      <message>[M3.02.1] dyn_reader(8) returned NULL. Should have returned pointer to the allocated array</message>
+    </test>
+    <test result="failure">
+      <path>.</path>
+      <fn>test_source.c:59</fn>
+      <id>test_add_to_array</id>
+      <iteration>0</iteration>
+      <duration>-1.000000</duration>
+      <description>test_add_to_array</description>
+      <message>[M3.02.2] add_to_array returned NULL. Should have returned a pointer to allocated array.</message>
+    </test>
+  </suite>
+  <duration>0.002377</duration>
+</testsuites>
