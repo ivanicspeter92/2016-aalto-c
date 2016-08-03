@@ -9,8 +9,16 @@
  * Returns: pointer to the dynamically allocated array
  */
 int *dyn_reader(unsigned int n) {
-    (void) n;
-    return NULL;  // replace this
+    int *address = malloc(n * sizeof(int));
+    
+    if (address != NULL) {
+        int array[n];
+        for(int i = 0; i < n; ++i) {
+            scanf("%d", (address + i));
+        }
+
+        return address;
+    }
 }
 
 /* Add to array */
@@ -23,8 +31,5 @@ int *dyn_reader(unsigned int n) {
  */
 int *add_to_array(int *arr, unsigned int num, int newval)
 {
-    (void) arr;
-    (void) num;
-    (void) newval;
     return NULL;  // replace this
 }
