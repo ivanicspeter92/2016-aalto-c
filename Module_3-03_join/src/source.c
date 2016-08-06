@@ -15,20 +15,6 @@ int* join_arrays(unsigned int numbers1, int* pointer1, unsigned int numbers2, in
         join_array(numbers2, pointer2, result + numbers1);
         join_array(numbers3, pointer3, result + numbers1 + numbers2);
         
-//        int count = 0;
-//        for (int i = 0; i < numbers1; i++) {
-//            result[count] = pointer1[i];
-//            count++;
-//        }
-//        for (int i = 0; i < numbers2; i++) {
-//            result[count] = pointer2[i];
-//            count++;
-//        }
-//        for (int i = 0; i < numbers3; i++) {
-//            result[count] = pointer3[i];
-//            count++;
-//        }
-        
         return result;
     }
     
