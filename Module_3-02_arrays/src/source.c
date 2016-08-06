@@ -34,15 +34,11 @@ int *add_to_array(int *arr, unsigned int num, int newval) {
     int *newlocation = (int*)realloc(arr, (sizeof(int[num]) + sizeof(int)));
     
     if (newlocation != NULL) {
-        if (newlocation != arr)
-            free(arr);
-        
         newlocation[num] = newval;
         
         return newlocation;
     }
-    if (arr) {
-        free(newlocation);
-    }
+    
+    free(newlocation);
     return NULL;
 }
