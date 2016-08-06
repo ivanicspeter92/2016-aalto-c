@@ -9,16 +9,17 @@
  * Returns: pointer to the dynamically allocated array
  */
 int *dyn_reader(unsigned int n) {
-    int *address = malloc(n * sizeof(int));
+    int *address = (int*)malloc(n * sizeof(int));
     
     if (address != NULL) {
-        int array[n];
-        for(int i = 0; i < n; ++i) {
-            scanf("%d", (address + i));
+        for(int i = 0; i < n; i++) {
+            scanf("%d", &address[i]);
         }
-
+        
         return address;
     }
+    free(address);
+    return NULL;
 }
 
 /* Add to array */
@@ -29,7 +30,19 @@ int *dyn_reader(unsigned int n) {
  * 
  * Returns: pointer to the allocated array
  */
-int *add_to_array(int *arr, unsigned int num, int newval)
-{
-    return NULL;  // replace this
+int *add_to_array(int *arr, unsigned int num, int newval) {
+    int *newlocation = (int*)realloc(arr, (sizeof(int[num]) + sizeof(int)));
+    
+    if (newlocation != NULL) {
+        if (newlocation != arr)
+            free(arr);
+        
+        newlocation[num] = newval;
+        
+        return newlocation;
+    }
+    if (arr) {
+        free(newlocation);
+    }
+    return NULL;
 }
