@@ -77,10 +77,15 @@ void freeFraction(Fraction *f) {
  * 0 if the fractions are equal
  * 1 if a is larger than b
  */
-int compFraction(const Fraction *a, const Fraction *b)
-{
-    (void) a;
-    (void) b;
+int compFraction(const Fraction *a, const Fraction *b) {
+    double value_of_a = (double)getNum(a) / (double)getDenom(a);
+    double value_of_b = (double)getNum(b) / (double)getDenom(b);
+    
+    if (value_of_a < value_of_b) {
+        return -1;
+    } else if (value_of_a > value_of_b) {
+        return 1;
+    }
     return 0;
 }
 
