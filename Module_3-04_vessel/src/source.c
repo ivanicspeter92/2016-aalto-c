@@ -19,12 +19,16 @@ struct vessel create_vessel(const char *p_name,
     return result;
 }
 
+void print_cargo(const struct cargo *crg) {
+    printf("%s\n", crg->title);
+    printf("%d\n", crg->quantity);
+    printf("%.1f\n", crg->weight);
+}
+
 void print_vessel(const struct vessel *ship) {
     printf("%s\n", ship->name);
     printf("%.1f\n", ship->length);
     printf("%.1f\n", ship->depth);
     
-    printf("%s\n", ship->crg.title);
-    printf("%d\n", ship->crg.quantity);
-    printf("%.1f\n", ship->crg.weight);
+    print_cargo(&ship->crg);
 }
