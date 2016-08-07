@@ -1,10 +1,6 @@
-
 // Cargo: what the vessel is carrying
-struct cargo {
-    const char *title;
-    int quantity;
-    double weight;
-};
+#include "cargo.h"
+#include "vessel.h"
 
 // Define the vessel structure here
 struct vessel create_vessel(const char *name, double length, double depth,
