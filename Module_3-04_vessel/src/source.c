@@ -20,4 +20,11 @@ struct vessel create_vessel(const char *p_name,
 }
 
 void print_vessel(const struct vessel *ship) {
+    printf("%s\n", ship->name);
+    printf("%.1f\n", ship->length);
+    printf("%.1f\n", ship->depth);
+    
+    printf("%s\n", ship->crg.title);
+    printf("%d\n", ship->crg.quantity);
+    printf("%.1f\n", ship->crg.weight);
 }
