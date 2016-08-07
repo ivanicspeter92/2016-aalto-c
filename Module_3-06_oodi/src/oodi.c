@@ -82,14 +82,18 @@ struct oodi *add_record(struct oodi *array, unsigned int length, struct oodi new
  * Returns: number of entries changed, i.e. either 1 or 0
  */
 int change_grade(struct oodi *array, unsigned int size, const char *p_student,
-        const char *p_course, unsigned char newgrade, struct date newdate)
-{
-    (void) array;
-    (void) size;
-    (void) p_student;
-    (void) p_course;
-    (void) newgrade;
-    (void) newdate;
+        const char *p_course, unsigned char newgrade, struct date newdate) {
+    struct oodi record;
+    
+    for (int i = 0; i < size; i++) {
+        if (strcmp(array[i].student, p_student) == 0 && strcmp(array[i].course, p_course) == 0) {
+            array[i].grade = newgrade;
+            array[i].compdate = newdate;
+            
+            return 1;
+        }
+    }
+    
     return 0;
 }
 
