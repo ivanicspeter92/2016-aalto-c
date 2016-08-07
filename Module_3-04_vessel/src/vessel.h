@@ -1,5 +1,5 @@
 struct vessel {
-    char* name;
+    char name[30];
     double length;
     double depth;
     struct cargo crg;
