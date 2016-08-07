@@ -73,7 +73,6 @@ void freeFraction(Fraction *f) {
     free(f);
 }
 
-
 /* Exercise b: Compare values
  * Parameters: two fractions to be compared
  * Returns:
@@ -97,23 +96,23 @@ int compFraction(const Fraction *a, const Fraction *b) {
  * Parameters: two fractions to be added
  * Returns: sum of the fractions
  */
-Fraction* addFraction(const Fraction *a, const Fraction *b)
-{
-    (void) a;
-    (void) b;
-    return NULL;  // replace this
+Fraction* addFraction(const Fraction *a, const Fraction *b) {
+    int common_denominator = getDenom(a) * getDenom(b);
+    
+    int new_numerator_a = getNum(a) * getDenom(b);
+    int new_numerator_b = getNum(b) * getDenom(a);
+    
+    return setFraction(new_numerator_a + new_numerator_b, common_denominator);
 }
 
 
 /* Reduce fraction
  * Parameters: Fraction to be reduced. Reduction happens on the object itself */
-void reduceFraction(Fraction* val)
-{
+void reduceFraction(Fraction* val) {
     (void) val;
 }
 
 /* Not needed, but it will be useful to implement this */
-void printFraction(const Fraction *val)
-{
+void printFraction(const Fraction *val) {
     (void) val;
 }
