@@ -117,5 +117,5 @@ void reduceFraction(Fraction* val) {
 
 /* Not needed, but it will be useful to implement this */
 void printFraction(const Fraction *val) {
-    (void) val;
+    printf("%d / %d\n", val->numerator, val->denominator);
 }
