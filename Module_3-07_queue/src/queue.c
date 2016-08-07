@@ -8,6 +8,15 @@ Queue *Queue_init(void) {
     return q;
 }
 
+void enqueue(Queue *queue_pointer, struct student* student_pointer) {
+    if (queue_pointer->last != NULL) { // check if the queue is not empty
+        queue_pointer->last->next = student_pointer;
+    } else { // this is the first item in the queue 
+        queue_pointer->first = student_pointer;
+    }
+    queue_pointer->last = student_pointer; // assigning the last pointer to this item as this was the most recently added one
+}
+
 /// Adds a new student element to the queue. 
 /// \param q The queue to be extended.
 /// \param id The ID of the student. Should not be longer than 6 characters.
@@ -28,13 +37,7 @@ int Queue_enqueue(Queue *q, const char *id, const char *name) {
         student_pointer->name = name_pointer;
         student_pointer->next = NULL; 
         
-        // adding the new object to the queue
-        if (q->last != NULL) { // check if the queue is not empty
-            q->last->next = student_pointer;
-        } else { // this is the first item in the queue 
-            q->first = student_pointer;
-        }
-        q->last = student_pointer; // assigning the last pointer to this item as this was the most recently added one
+        enqueue(q, student_pointer);
         
         return 1;
     }
@@ -44,37 +47,32 @@ int Queue_enqueue(Queue *q, const char *id, const char *name) {
     return 0;
 }
 
-char *Queue_firstID(Queue *q)
-{
+char *Queue_firstID(Queue *q) {
     if (q && q->first)
         return q->first->id;
     else
         return NULL;
 }
 
-char *Queue_firstName(Queue *q)
-{
+char *Queue_firstName(Queue *q) {
     if (q && q->first)
         return q->first->name;
     else
         return NULL;
 }
 
-int Queue_dequeue(Queue *q)
-{
+int Queue_dequeue(Queue *q) {
     (void) q;
     return 0;
 }
 
-int Queue_drop(Queue *q, const char *id)
-{
+int Queue_drop(Queue *q, const char *id) {
     (void) q;
     (void) id;
     return 0;
 }
 
-void Queue_delete(Queue *q)
-{
+void Queue_delete(Queue *q) {
     if (q) {
         while(Queue_dequeue(q));
         free(q);
