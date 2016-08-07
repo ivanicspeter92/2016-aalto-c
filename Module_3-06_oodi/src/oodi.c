@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "oodi.h"
 
 
@@ -17,13 +18,24 @@
  * -- Remember to check that reserved space is not overwritten
  */
 int init_record(struct oodi *or, const char *p_student, const char *p_course,
-        unsigned char p_grade, struct date p_date)
-{
-    (void) or;
-    (void) p_student;
-    (void) p_course;
-    (void) p_grade;
-    (void) p_date;
+        unsigned char p_grade, struct date p_date) {
+    int max_student_id_length = 6;
+    if (strlen(p_student) > max_student_id_length) 
+        return -1;
+    
+    char* course_pointer = (char*)malloc((strlen(p_course) + 2) * sizeof(char)); // reserving as much space as many characters the p_course string has + 2 places for '\0'
+    
+    if (course_pointer != NULL) {
+        or->course = course_pointer;
+        strcpy(course_pointer, p_course);
+        
+        strcpy(or->student, p_student);
+        or->grade = p_grade;
+        or->compdate = p_date;
+        
+        return 1;
+    }
+    free(course_pointer);
     return 0;
 }
 
