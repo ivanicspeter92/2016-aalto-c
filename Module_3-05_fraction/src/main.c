@@ -12,7 +12,9 @@ int main()
      * gain you points, but will be useful for testing */
     
     Fraction *a = setFraction(2,3);
+    printFraction(a);
     Fraction *b = setFraction(3,4);
+    printFraction(b);
     
     Fraction *sum = addFraction(a, b);
     printFraction(sum);
