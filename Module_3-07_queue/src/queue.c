@@ -1,18 +1,46 @@
 #include <stdlib.h>
+#include <string.h>
 #include "queue.h"
 #include "queuepriv.h"
 
-Queue *Queue_init(void)
-{
+Queue *Queue_init(void) {
     Queue *q = calloc(1, sizeof(Queue));
     return q;
 }
 
-int Queue_enqueue(Queue *q, const char *id, const char *name)
-{
-    (void) q;
-    (void) id;
-    (void) name;
+/// Adds a new student element to the queue. 
+/// \param q The queue to be extended.
+/// \param id The ID of the student. Should not be longer than 6 characters.
+/// \param name The name of the student - the space for this should be dynamically allocated. 
+/// \return 0 if the ID is longer than 6 characters or the allocation of the dynamic space has failed; 1 if adding the item was successful. 
+int Queue_enqueue(Queue *q, const char *id, const char *name) {
+    int max_id_length = 6;
+    if (strlen(id) > max_id_length) 
+        return 0;
+    
+    struct student* student_pointer = malloc(sizeof(struct student));
+    char* name_pointer = malloc(sizeof(char) * (strlen(name) + 2));
+    
+    if (student_pointer != NULL && name_pointer != NULL) {
+        // setting up the new student object
+        strcpy(name_pointer, name);
+        strcpy(student_pointer->id, id);
+        student_pointer->name = name_pointer;
+        student_pointer->next = NULL; 
+        
+        // adding the new object to the queue
+        if (q->last != NULL) { // check if the queue is not empty
+            q->last->next = student_pointer;
+        } else { // this is the first item in the queue 
+            q->first = student_pointer;
+        }
+        q->last = student_pointer; // assigning the last pointer to this item as this was the most recently added one
+        
+        return 1;
+    }
+    
+    free(student_pointer);
+    free(name_pointer);
     return 0;
 }
 
