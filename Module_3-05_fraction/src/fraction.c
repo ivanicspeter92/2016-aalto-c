@@ -1,5 +1,10 @@
 #include <stdlib.h>
 #include "fraction.h"
+#include "assert.h";
+
+struct fraction_st {
+    int numerator, denominator;
+};
 
 /* Algorithm for determining greatest common divisor, needed in (d) */
 /* The function returns gcd between the two parameters, u and v */
@@ -40,29 +45,28 @@ unsigned int gcd(unsigned int u, unsigned int v)
  * Parameters: numerator and denominator
  * Returns: pointer to allocated fraction
  */
-Fraction* setFraction(unsigned int numerator, unsigned int denominator)
-{
-    (void) numerator;
-    (void) denominator;
-    return NULL;  // replace this
-}
-
-unsigned int getNum(const Fraction *f)
-{
-    (void) f;
-    return 0;
-}
-
-unsigned int getDenom(const Fraction *f)
-{
-    (void) f;
-    return 0;
+Fraction* setFraction(unsigned int numerator, unsigned int denominator) {
+    Fraction* result = malloc(sizeof(struct fraction_st)); 
     
+    if (result != NULL) {
+        result->numerator = numerator;
+        result->denominator = denominator;
+
+        return result;
+    }
 }
 
-void freeFraction(Fraction *f)
-{
-    (void) f;
+unsigned int getNum(const Fraction *f) {
+    return f->numerator;
+}
+
+unsigned int getDenom(const Fraction *f) {
+    return f->denominator;
+}
+
+void freeFraction(Fraction *f) {
+    assert(f);
+    free(f);
 }
 
 
