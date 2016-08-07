@@ -49,11 +49,23 @@ int init_record(struct oodi *or, const char *p_student, const char *p_course,
  * 
  * Returns: pointer to the array after adding the new item
  */
-struct oodi *add_record(struct oodi *array, unsigned int length, struct oodi newrec)
-{
-    (void) array;
-    (void) length;
-    (void) newrec;
+struct oodi *add_record(struct oodi *array, unsigned int length, struct oodi newrec) {
+    struct oodi* new_pointer = realloc(array, length * sizeof(struct oodi) + sizeof(struct oodi));
+    
+    if (new_pointer != NULL) {
+//        if (new_pointer != array) { // all items have to be copied to the new space
+//            for(int i = 0; i < length; i++) {
+//                init_record(&new_pointer[i], array[i].student, array[i].course, array[i].grade, array[i].compdate);
+//            }
+//            
+//            
+//            free(array); // old space can be released
+//        } 
+        init_record(&new_pointer[length],newrec.student,newrec.course,newrec.grade, newrec.compdate);
+        
+        return new_pointer;
+    }
+    free(new_pointer);
     return NULL;
 }
 
