@@ -109,7 +109,10 @@ Fraction* addFraction(const Fraction *a, const Fraction *b) {
 /* Reduce fraction
  * Parameters: Fraction to be reduced. Reduction happens on the object itself */
 void reduceFraction(Fraction* val) {
-    (void) val;
+    int greatest_common_divisor = gcd(getNum(val), getDenom(val));
+    
+    val->numerator /= greatest_common_divisor;
+    val->denominator /= greatest_common_divisor;
 }
 
 /* Not needed, but it will be useful to implement this */
