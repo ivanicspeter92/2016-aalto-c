@@ -64,6 +64,10 @@ unsigned int getDenom(const Fraction *f) {
     return f->denominator;
 }
 
+double getValue(const Fraction *f) {
+    return (double)getNum(f) / (double)getDenom(f);
+}
+
 void freeFraction(Fraction *f) {
     assert(f);
     free(f);
@@ -78,8 +82,8 @@ void freeFraction(Fraction *f) {
  * 1 if a is larger than b
  */
 int compFraction(const Fraction *a, const Fraction *b) {
-    double value_of_a = (double)getNum(a) / (double)getDenom(a);
-    double value_of_b = (double)getNum(b) / (double)getDenom(b);
+    double value_of_a = getValue(a);
+    double value_of_b = getValue(b);
     
     if (value_of_a < value_of_b) {
         return -1;
