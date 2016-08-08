@@ -25,27 +25,32 @@ AnyData setByte(char value) {
     ad.value.bval = value;
     return ad;
 }
-
-
-void printDouble(double val)
-{
+ 
+void printDouble(double val) {
     printf("D:%lf", val);
 }
 
-void printInt(int val)
-{
+void printInt(int val) {
     printf("I:%d", val);
 }
 
-void printByte(char val)
-{
+void printByte(char val) {
     printf("B:%d", val);
 }
 
 /* 01_anydata (b)
  * Print the given AnyData value, using one of the above functions
  */
-void printValue(AnyData val)
-{
-   (void) val; // replace these lines with your code
+void printValue(AnyData val) {
+    switch (val.type) {
+        case DOUBLE: 
+            printDouble(val.value.dval);
+            break;
+        case INT: 
+            printInt(val.value.ival);
+            break;
+        case BYTE: 
+            printByte(val.value.bval);
+            break;
+    }
 }
