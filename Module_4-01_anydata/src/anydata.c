@@ -5,27 +5,24 @@
 /* 01_anydata (a)
  * Return a new AnyData object based on the given input
  */
-AnyData setDouble(double value)
-{
-    (void) value; // replace these lines with your code
+AnyData setDouble(double value) {
     AnyData ad;
-    ad.type = UNDEF;
+    ad.type = DOUBLE;
+    ad.value.dval = value;
     return ad;
 }
 
-AnyData setInt(int value)
-{
-    (void) value; // replace these lines with your code
+AnyData setInt(int value) {
     AnyData ad;
-    ad.type = UNDEF;
+    ad.type = INT;
+    ad.value.ival = value;
     return ad;
 }
 
-AnyData setByte(char value)
-{
-    (void) value; // replace these lines with your code
+AnyData setByte(char value) {
     AnyData ad;
-    ad.type = UNDEF;
+    ad.type = BYTE;
+    ad.value.bval = value;
     return ad;
 }
 
