@@ -6,16 +6,22 @@
  * Returns: pointer to the array of strings that has one element
  *      (that contains NULL)
  */
-char **init_array(void)
-{
-    return NULL;   // replace this
+char **init_array(void) {
+    char** pointer = malloc(sizeof(char*[1]));
+    
+    if (pointer != NULL ){
+        pointer[0] = NULL;
+        return pointer;
+    }
 }
 
 /* Releases the memory used by the strings.
  */
-void free_strings(char **array)
-{
-    (void) array; // replace this
+void free_strings(char **array) {
+//    for(int i = 0; i < sizeof(array); i++) {
+//        free(array[i]);
+//    }
+    free(array);
 }
 
 /* Exercise b: Add <string> to the end of array <array>.
