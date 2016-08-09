@@ -8,18 +8,47 @@
  * 
  * Returns: pointer to the Field structure allocated by this function.
  */
-Field *createField(unsigned int xsize, unsigned int ysize)
-{
-    (void) xsize; // replace these lines
-    (void) ysize;
-    return NULL;   // replace this
+Field *createField(unsigned int xsize, unsigned int ysize) {
+    Field* result = malloc(sizeof(Field));
+    
+    if (result != NULL) {
+        
+        result->cells = malloc(ysize * sizeof(State *));
+        if (result->cells != NULL) {
+            result->xsize = xsize;
+            result->ysize = ysize;
+            
+            for(int i = 0; i < ysize; i++) {
+                result->cells[i] = malloc(xsize * sizeof(State));
+                
+                if (result->cells[i] == NULL) {
+                    for (int j = 0; j < i; j++) {
+                        free(result->cells[j]);
+                    }
+                    free(result->cells);
+                    free(result);
+                    return NULL;
+                }
+                for(int j = 0; j < xsize; j++) {    
+                    result->cells[i][j] = DEAD;
+                }
+            }
+
+            return result;
+        }
+    }
+    free(result);
 }
 
 /* Free memory allocated for field <f>.
  */
-void releaseField(Field *f)
-{
-    (void) f;
+void releaseField(Field *f) {
+    for(int i = 0; i < f->ysize; i++) {
+        free(f->cells[i]);
+    }
+    
+    free(f->cells);
+    free(f);
 }
 
 /* Exercise b: Initialize game field by setting exactly <n> cells into
