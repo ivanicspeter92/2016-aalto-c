@@ -69,9 +69,22 @@ void initField(Field *f, unsigned int n) {
 
 /* Exercise c: Output the current state of field <f>.
  */
-void printField(const Field *f)
-{
-    (void) f;
+void printField(const Field *f) {
+    char dead_cell = '.', alive_cell = '*';
+    
+    for(int i = 0; i < f->ysize; i++) {
+        for(int j = 0; j < f->xsize; j++) {
+            switch (f->cells[i][j]) { 
+                case DEAD:
+                    printf("%c", dead_cell);
+                    break;
+                case ALIVE: 
+                    printf("%c", alive_cell);
+                    break;
+            }
+        }
+        printf("\n");
+    }
 }
 
 
