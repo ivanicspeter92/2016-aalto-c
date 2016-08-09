@@ -54,10 +54,17 @@ void releaseField(Field *f) {
 /* Exercise b: Initialize game field by setting exactly <n> cells into
  * ALIVE state in the game field <f>.
  */
-void initField(Field *f, unsigned int n)
-{
-    (void) f;
-    (void) n;
+void initField(Field *f, unsigned int n) {
+    int coord_x, coord_y;
+    while (n > 0) {
+        coord_y = rand() % f->ysize;
+        coord_x = rand() % f->xsize;
+        
+        if (f->cells[coord_y][coord_x] == DEAD) {
+            f->cells[coord_y][coord_x] = ALIVE;
+            n--;
+        }
+    }
 }
 
 /* Exercise c: Output the current state of field <f>.
