@@ -94,16 +94,26 @@ void printField(const Field *f) {
     }
 }
 
+void copy_states(State** source, State** destination, unsigned int xsize, unsigned int ysize) {
+    for(int i = 0; i < ysize; i++) {
+        for(int j = 0; j < xsize; j++) {
+            destination[i][j] = source[i][j];
+        }
+    }
+}
+
 /// Creates a deep copy of the Field object at the provided original pointer.
 /// \param original The pointer to the Field object to be copied.
 /// \return The pointer to the new Field object or NULL if the copy failed.
 Field* deep_copy_field(Field* original) {
-    Field* result = malloc(sizeof(Field));
+    Field* result = createField(original->xsize, original->ysize);
+    
     if (result != NULL) {
-        memcpy(result, original, sizeof(Field));
-        
+        copy_states(original->cells, result->cells, original->xsize, original->ysize);
         return result;
     }
+    
+    releaseField(result);
 }
 
 bool is_top_row(int i) {
@@ -196,6 +206,6 @@ void tick(Field *f) {
             }
         }
         
-        free(temporary_field);
+        releaseField(temporary_field);
     }
 }
