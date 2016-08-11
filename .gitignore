@@ -7,3 +7,11 @@ nbactions.xml
 *.dSYM
 valgrind.log
 */nbproject/private
+nbproject/*
+main
+test
+mockoutput
+tmc_available_points.txt
+tmc_test_results.xml
+mockinput
+configurations.xml
