@@ -6,4 +6,4 @@ nbactions.xml
 .nb-gradle/
 *.dSYM
 valgrind.log
-nbproject/private
+*/nbproject/private
