@@ -5,8 +5,8 @@
 
 
 void parse_character_array_to_ip(struct ipHeader *ip, const unsigned char *buffer, const int length) {
-    ip->version = buffer[0] / 10;
-    ip->ihl = buffer[0] % 10;
+    ip->version = buffer[0] >> 4;
+    ip->ihl = (buffer[0] & 0x0f) * 4;
     
     printIp(ip);
 }
