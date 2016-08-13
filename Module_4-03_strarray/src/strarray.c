@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "strarray.h"
 
 /* Exercise a: Initializes the string array to contain the initial
@@ -68,9 +69,15 @@ char **add_string(char **array, const char *string) {
 
 /* Exercise c: Convert letters of all strings in <array> to lower case.
  */
-void make_lower(char **array)
-{
-    (void) array; // replace this
+void make_lower(char **array) {
+    int i = 0;
+    
+    while(array[i] != NULL) {
+        for(int j = 0; j < strlen(array[i]); j++) {
+            array[i][j] = tolower(array[i][j]);
+        }
+        i++;
+    }
 }
 
 
