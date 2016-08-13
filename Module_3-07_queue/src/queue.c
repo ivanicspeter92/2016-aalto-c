@@ -66,13 +66,14 @@ char *Queue_firstName(Queue *q) {
 int Queue_dequeue(Queue *q) {
     if (q->first != NULL) {
         if (q->first == q->last) { // only one item in the queue
+            free(q->first->name);
             free(q->first);
             q->first = NULL;
             q->last = NULL;
         } else { // more than one item
             struct student* first_item = q->first;
             q->first = first_item->next;
-//            free(first_item->name);
+            free(first_item->name);
             free(first_item);
         }
         
@@ -100,7 +101,7 @@ int Queue_drop(Queue *q, const char *id) {
                         q->last = last_student;
                         last_student->next = NULL;
                     }
-                    
+                    free(student_to_delete->name);
                     free(student_to_delete);
                     return 1;
                 }
