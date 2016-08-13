@@ -55,18 +55,15 @@ char **add_string(char **array, const char *string) {
     char** new_pointer = realloc(array, sizeof(char*) * (count + 2));
     
     if (new_pointer != NULL) {
-        new_pointer[count] = malloc((strlen(string) + 2) * sizeof(char));
-        new_pointer[count + 1] = malloc(sizeof(char*));
+        new_pointer[count] = malloc((strlen(string) + 1) * sizeof(char));
         
-        if (new_pointer[count] != NULL && new_pointer[count + 1] != NULL) {
+        if (new_pointer[count] != NULL) {
             strcpy(new_pointer[count], string);
             new_pointer[count + 1] = NULL;
             
             return new_pointer;
         }
     }
-    free(new_pointer);
-    return array;
 }
 
 /* Exercise c: Convert letters of all strings in <array> to lower case.
