@@ -5,8 +5,12 @@
 
 
 void parse_character_array_to_ip(struct ipHeader *ip, const unsigned char *buffer, const int length) {
+    // OCTET 0
     ip->version = buffer[0] >> 4;
-    ip->ihl = (buffer[0] & 0x0f) * 4;
+    ip->ihl = (buffer[0] & 0x0f) * 4; // multiplied by 4 in order to convert value to bytes
+    ip->dscp = (buffer[1] >> 2);
+    ip->ecn = (buffer[1] & 0x03);
+    ip->length = (buffer[2] >> 4) * 16 * 16 * 16 + ((buffer[2] & 0x0f) * 16 * 16) + buffer[3];
     
     printIp(ip);
 }
