@@ -3,16 +3,20 @@
 #include <string.h>
 #include "ipheader.h"
 
-
 void parse_character_array_to_ip(struct ipHeader *ip, const unsigned char *buffer, const int length) {
-    // OCTET 0
+//    int octet = 0;
     ip->version = buffer[0] >> 4;
     ip->ihl = (buffer[0] & 0x0f) * 4; // multiplied by 4 in order to convert value to bytes
     ip->dscp = (buffer[1] >> 2);
     ip->ecn = (buffer[1] & 0x03);
     ip->length = (buffer[2] >> 4) * 16 * 16 * 16 + ((buffer[2] & 0x0f) * 16 * 16) + buffer[3];
     
-    printIp(ip);
+//    octet = 1;
+    ip->identification = (buffer[4] >> 4) * 16 * 16 * 16 + ((buffer[4] & 0x0f) * 16 * 16) + buffer[5];
+    ip->fragment_offset = (buffer[6] & 0x1f) * 16 * 16 + buffer[7];
+    ip->time_to_live = buffer[8];
+    ip->protocol = buffer[9];
+    ip->header_checksum = (buffer[10] >> 4) * 16 * 16 * 16 + ((buffer[10] & 0x0f) * 16 * 16) + buffer[11];
 }
 
 /* Parses the given buffer into an IP header structure.
