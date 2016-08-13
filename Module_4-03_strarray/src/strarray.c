@@ -82,9 +82,29 @@ void make_lower(char **array) {
 
 
 /* Exercise d: reorder strings in <array> to lexicographical order */
-void sort_strings(char **array)
-{
-    (void) array;
+void sort_strings(char **array) {
+    int array_length = get_length(array);
+    if (array_length <= 0) // returning if the array is empty
+        return;
+    
+    int smallest_index;
+    char* smallest;
+    char* temp;
+    
+    for(int i = 0; i < array_length; i++) {
+        smallest_index = i;
+        smallest = array[smallest_index];
+        for(int j = i; j < array_length; j++) {
+            if (strcmp(array[j], smallest) < 0) {
+                smallest = array[j];
+                smallest_index = j;
+            }
+        }
+        
+        temp = array[i];
+        array[i] = smallest;
+        array[smallest_index] = temp;
+    }
 }
 
 /* You can use this function to check what your array looks like.
