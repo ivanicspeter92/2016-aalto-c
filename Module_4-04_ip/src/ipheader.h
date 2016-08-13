@@ -1,6 +1,6 @@
 struct ipHeader {
     int version;
-    int ihl;
+    int ihl; // in bytes
     int dscp;
     int ecn;
     unsigned short length;
