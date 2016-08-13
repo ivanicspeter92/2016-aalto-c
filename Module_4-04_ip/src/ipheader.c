@@ -3,20 +3,29 @@
 #include <string.h>
 #include "ipheader.h"
 
-void parse_character_array_to_ip(struct ipHeader *ip, const unsigned char *buffer, const int length) {
-//    int octet = 0;
+void parse_character_array_to_ip(struct ipHeader *ip, const unsigned char *buffer) {
     ip->version = buffer[0] >> 4;
     ip->ihl = (buffer[0] & 0x0f) * 4; // multiplied by 4 in order to convert value to bytes
     ip->dscp = (buffer[1] >> 2);
     ip->ecn = (buffer[1] & 0x03);
     ip->length = (buffer[2] >> 4) * 16 * 16 * 16 + ((buffer[2] & 0x0f) * 16 * 16) + buffer[3];
     
-//    octet = 1;
     ip->identification = (buffer[4] >> 4) * 16 * 16 * 16 + ((buffer[4] & 0x0f) * 16 * 16) + buffer[5];
+    ip->flags = ((buffer[6] & 0xE0) >> 5);
     ip->fragment_offset = (buffer[6] & 0x1f) * 16 * 16 + buffer[7];
     ip->time_to_live = buffer[8];
     ip->protocol = buffer[9];
     ip->header_checksum = (buffer[10] >> 4) * 16 * 16 * 16 + ((buffer[10] & 0x0f) * 16 * 16) + buffer[11];
+    
+    ip->source_ip[0] = buffer[12];
+    ip->source_ip[1] = buffer[13];
+    ip->source_ip[2] = buffer[14];
+    ip->source_ip[3] = buffer[15];
+    
+    ip->destination_ip[0] = buffer[16];
+    ip->destination_ip[1] = buffer[17];
+    ip->destination_ip[2] = buffer[18];
+    ip->destination_ip[3] = buffer[19];
 }
 
 /* Parses the given buffer into an IP header structure.
@@ -28,8 +37,7 @@ void parse_character_array_to_ip(struct ipHeader *ip, const unsigned char *buffe
 void parseIp(struct ipHeader *ip, const void *buffer) {
     unsigned char* char_buffer = buffer;
     if (char_buffer != NULL) {
-        int length = 20;
-        parse_character_array_to_ip(ip, char_buffer, length);
+        parse_character_array_to_ip(ip, char_buffer);
     }
 }
 
