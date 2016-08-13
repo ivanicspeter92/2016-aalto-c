@@ -21,11 +21,14 @@ int main()
     Queue *q = Queue_init();
     
     for (unsigned int i = 0; i < sizeof(students) / sizeof(struct stud); i++) {
-        if (Queue_enqueue(q, students[i].id, students[i].name))
-            printf("i = %d, firstname: %s\n", i, Queue_firstName(q));
+        if (Queue_enqueue(q, students[i].id, students[i].name)) {
+            printf("i = %d, %s was added to the queue, first person in the queue: %s\n", i, students[i].name, Queue_firstName(q));
+        }
     }
     
-    Queue_drop(q, "777777");
+    if (Queue_drop(q, "777777") == 1) {
+        printf("student with ID 777777 was dropped\n");
+    }
     
     while (Queue_dequeue(q)) {
         if (Queue_firstName(q))
