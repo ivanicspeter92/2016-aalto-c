@@ -2,6 +2,7 @@
 #include <string.h>
 #include "queue.h"
 #include "queuepriv.h"
+#include <stdbool.h>
 
 Queue *Queue_init(void) {
     Queue *q = calloc(1, sizeof(Queue));
@@ -28,22 +29,20 @@ int Queue_enqueue(Queue *q, const char *id, const char *name) {
         return 0;
     
     struct student* student_pointer = malloc(sizeof(struct student));
-    char* name_pointer = malloc(sizeof(char) * (strlen(name) + 2));
-    
-    if (student_pointer != NULL && name_pointer != NULL) {
-        // setting up the new student object
-        strcpy(name_pointer, name);
-        strcpy(student_pointer->id, id);
-        student_pointer->name = name_pointer;
-        student_pointer->next = NULL; 
+    if (student_pointer != NULL) {
+        student_pointer->name = malloc(sizeof(char) * (strlen(name) + 1));
         
-        enqueue(q, student_pointer);
-        
-        return 1;
+        if (student_pointer->name != NULL) {
+            // setting up the new student object
+            strcpy(student_pointer->name, name);
+            strcpy(student_pointer->id, id);
+            student_pointer->next = NULL; 
+
+            enqueue(q, student_pointer);
+            return 1;
+        }
     }
     
-    free(student_pointer);
-    free(name_pointer);
     return 0;
 }
 
@@ -61,14 +60,57 @@ char *Queue_firstName(Queue *q) {
         return NULL;
 }
 
+/// Removes the first member of the queue, and releases all memory allocated for it.
+/// \param q
+/// \return 1, if something was removed; or 0 if nothing was removed, i.e., because the queue was already empty.
 int Queue_dequeue(Queue *q) {
-    (void) q;
+    if (q->first != NULL) {
+        if (q->first == q->last) { // only one item in the queue
+            free(q->first);
+            q->first = NULL;
+            q->last = NULL;
+        } else { // more than one item
+            struct student* first_item = q->first;
+            q->first = first_item->next;
+//            free(first_item->name);
+            free(first_item);
+        }
+        
+        return 1;
+    }
+    
     return 0;
 }
 
 int Queue_drop(Queue *q, const char *id) {
-    (void) q;
-    (void) id;
+    if (q->first != NULL) {
+        if (strcmp(q->first->id, id) == 0) {
+            Queue_dequeue(q);
+            return 1;
+        } else {
+            struct student* next_student = q->first;
+            struct student* last_student;
+            do {
+                if (strcmp(next_student->id, id) == 0) {
+                    struct student* student_to_delete = next_student;
+                   
+                        last_student->next = student_to_delete->next;
+                    
+                    if (student_to_delete == q->last) {
+                        q->last = last_student;
+                        last_student->next = NULL;
+                    }
+                    
+                    free(student_to_delete);
+                    return 1;
+                }
+                
+                last_student = next_student;
+                next_student = next_student->next;
+            } while(next_student != NULL);
+        }
+    }
+    
     return 0;
 }
 
