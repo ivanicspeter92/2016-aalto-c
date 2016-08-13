@@ -1,7 +1,15 @@
 #include <stdio.h>
 #include <arpa/inet.h>
+#include <string.h>
 #include "ipheader.h"
 
+
+void parse_character_array_to_ip(struct ipHeader *ip, const unsigned char *buffer, const int length) {
+    ip->version = buffer[0] / 10;
+    ip->ihl = buffer[0] % 10;
+    
+    printIp(ip);
+}
 
 /* Parses the given buffer into an IP header structure.
  * 
@@ -9,8 +17,12 @@
  * ip: pointer to the IP header structure that will be filled based
  *      on the data in the buffer
  * buffer: buffer of 20 bytes that contain the IP header. */
-void parseIp(struct ipHeader *ip, const void *buffer)
-{
+void parseIp(struct ipHeader *ip, const void *buffer) {
+    unsigned char* char_buffer = buffer;
+    if (char_buffer != NULL) {
+        int length = 20;
+        parse_character_array_to_ip(ip, char_buffer, length);
+    }
 }
 
 
