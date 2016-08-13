@@ -36,8 +36,22 @@ int textdump(const char *filename) {
  * 
  * Returns the number of characters read
  */
-int hexdump(const char *filename)
-{
-    (void) filename;
-    return 0;
+int hexdump(const char *filename) {
+    FILE* filestream = fopen(filename, "r");
+    
+    if (filestream != NULL) {
+        char next_character_in_file;
+        int count = 0;
+        
+        while((next_character_in_file = fgetc(filestream)) != EOF) {
+            printf("%02x ", next_character_in_file);
+            count++;
+            if (count % 16 == 0)
+                printf("\n");
+        }
+        
+        fclose(filestream);
+        return count;
+    }
+    return -1;
 }
