@@ -50,8 +50,28 @@ int line_count(const char *filename) {
  * 
  * Returns:
  * number of words in the file */
-int word_count(const char *filename)
-{
-    (void) filename;
-    return 0;
+int word_count(const char *filename) {
+    FILE* filestream = fopen(filename, "r");
+    
+    if (filestream != NULL) {
+        char next_character_in_file;
+        int word_count = 0;
+        bool word_contains_alphabetical_character = false;
+        
+        while((next_character_in_file = fgetc(filestream)) != EOF) {
+            if(next_character_in_file == ' ' || next_character_in_file == '\n') {
+                if (word_contains_alphabetical_character)
+                    word_count++;
+                word_contains_alphabetical_character = false;
+            } else if(isalpha(next_character_in_file)) {
+                word_contains_alphabetical_character = true;
+            }
+        }
+        fclose(filestream);
+        
+        if (word_contains_alphabetical_character)
+            word_count++;
+        return word_count;
+    }
+    return -1;
 }
