@@ -41,20 +41,52 @@ void parseIp(struct ipHeader *ip, const void *buffer) {
     }
 }
 
+void send_ip_to_character_buffer(char *buffer, const struct ipHeader *ip) {
+    char version = ip->version << 4;
+    char ihl = (ip->ihl / 4);
+    buffer[0] = version ^ ihl;
+    
+    buffer[1] = ((char)ip->dscp << 2) ^ ((char)ip->ecn & 0x03);
+    buffer[2] = (ip->length >> 8) & 0xff;
+    buffer[3] = ip->length;
+    buffer[4] = (ip->identification >> 8) & 0xff;
+    buffer[5] = ip->identification;
+    
+    buffer[6] = (ip->flags << 5) ^ ((ip->fragment_offset >> 8) & 0xff);
+    buffer[7] = ip->fragment_offset;
+    
+    buffer[8] = ip->time_to_live;
+    buffer[9] = ip->protocol;
+    
+    buffer[10] = (ip->header_checksum >> 8) & 0xff;
+    buffer[11] = ip->header_checksum;
+    
+    buffer[12] = ip->source_ip[0];
+    buffer[13] = ip->source_ip[1];
+    buffer[14] = ip->source_ip[2];
+    buffer[15] = ip->source_ip[3];
+    
+    buffer[16] = ip->destination_ip[0];
+    buffer[17] = ip->destination_ip[1];
+    buffer[18] = ip->destination_ip[2];
+    buffer[19] = ip->destination_ip[3];
+}
 
 /* Builds a 20-byte byte stream based on the given IP header structure
  * 
  * Parameters:
  * buffer: pointer to the 20-byte buffer to which the header is constructed
  * ip: IP header structure that will be packed to the buffer */
-void sendIp(void *buffer, const struct ipHeader *ip)
-{
+void sendIp(void *buffer, const struct ipHeader *ip) {
+    unsigned char* char_buffer = buffer;
+    if (char_buffer != NULL) {
+        send_ip_to_character_buffer(char_buffer, ip);
+    }
 }
 
 
 /* Prints the given IP header structure */
-void printIp(const struct ipHeader *ip)
-{
+void printIp(const struct ipHeader *ip) {
     /* Note: ntohs below is for converting numbers from network byte order
      to host byte order. You can ignore them for now
      To be discussed further in Network Programming course... */
@@ -72,14 +104,13 @@ void printIp(const struct ipHeader *ip)
 }
 
 /* Shows hexdump of given data buffer */
-void hexdump(const void *buffer, unsigned int length)
-{
+void hexdump(const void *buffer, unsigned int length) {
     const unsigned char *cbuf = buffer;
     unsigned int i;
     for (i = 0; i < length; ) {
         printf("%02x ", cbuf[i]);
         i++;
-        if (!(i % 8))
+        if (!(i % 4))
             printf("\n");
     }
 }
