@@ -1,7 +1,6 @@
 #ifndef AALTO_ARRAYTOOL_H
 #define AALTO_ARRAYTOOL_H
 
-// Implement something here...
-
+#define CHECK(cond, msg) if (!(cond)) printf("%s", msg);
 
 #endif
