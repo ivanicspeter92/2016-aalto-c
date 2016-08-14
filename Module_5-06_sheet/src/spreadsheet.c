@@ -67,7 +67,6 @@ void free_sheet(Sheet *sheet) {
     free(sheet);
 }
 
-
 /* Returns pointer to the Cell structure at given location <p>
  * in spreadsheet <sheet>.
  */
@@ -80,8 +79,7 @@ Cell *get_cell(Sheet *sheet, Point p) {
 
 /* Convert two-letter user input into coordinates of type Point.
  */
-Point get_point(char xc, char yc)
-{
+Point get_point(char xc, char yc) {
     Point p;
     p.x = toupper(xc) - 'A';
     p.y = toupper(yc) - 'A';
@@ -91,8 +89,7 @@ Point get_point(char xc, char yc)
 /* Parses user input in <command> and applies it in spreadsheet <sheet>.
  * Returns 1 if input was valid, or 0 if it was not.
  */
-int parse_command(Sheet *sheet, const char *command)
-{
+int parse_command(Sheet *sheet, const char *command) {
     double val;
     Point p;
     char xc, yc;
@@ -126,8 +123,7 @@ int parse_command(Sheet *sheet, const char *command)
 
 /* Prints the content of given spreadsheet.
  */
-void print_sheet(Sheet *sheet)
-{
+void print_sheet(Sheet *sheet) {
     printf("%-8c", ' ');
     for (unsigned int x = 0; x < sheet->xsize; x++) {
         printf("%-8c", 'A' + x);
@@ -158,8 +154,7 @@ void print_sheet(Sheet *sheet)
 
 /* Set the content of location <p> in spreadsheet to constant <value>
  */
-void set_value(Sheet *sheet, Point p, double value)
-{
+void set_value(Sheet *sheet, Point p, double value) {
     (void) sheet;  // remove this line
     (void) p;  // remove this line
     (void) value;  // remove this line
@@ -170,10 +165,7 @@ void set_value(Sheet *sheet, Point p, double value)
  * <dr> is the lower right corner of the area over which the function
  * is applied.
  */
-void set_func(Sheet *sheet, Point p,
-        double (*func)(Sheet *, Point, Point),
-        Point ul, Point dr)
-{
+void set_func(Sheet *sheet, Point p, double (*func)(Sheet *, Point, Point), Point ul, Point dr) {
     (void) sheet;  // remove this line
     (void) p;  // remove this line
     (void) func;  // remove this line
@@ -186,8 +178,7 @@ void set_func(Sheet *sheet, Point p,
  * If cell contains function, the function is evaluated and its result returned.
  * If cell is unspecified or location out of bounds, NAN is returned.
  */
-double eval_cell(Sheet *sheet, Point p)
-{
+double eval_cell(Sheet *sheet, Point p) {
     (void) sheet;  // remove this line
     (void) p;  // remove this line
     return NAN;  // replace this line
@@ -196,8 +187,7 @@ double eval_cell(Sheet *sheet, Point p)
 /* Calculate the maximum value within area with upper left corner <ul>
  * and lower right corner <dl>, and return it.
  */
-double maxfunc(Sheet *sheet, Point ul, Point dr)
-{
+double maxfunc(Sheet *sheet, Point ul, Point dr) {
     (void) sheet;  // remove this line
     (void) ul;  // remove this line
     (void) dr;  // remove this line
@@ -207,8 +197,7 @@ double maxfunc(Sheet *sheet, Point ul, Point dr)
 /* Calculate the sum of values within upper left corner <ul> and
  * lower right corner <dr>, and return the result.
  */
-double sumfunc(Sheet *sheet, Point ul, Point dr)
-{
+double sumfunc(Sheet *sheet, Point ul, Point dr) {
     (void) sheet;  // remove this line
     (void) ul;  // remove this line
     (void) dr;  // remove this line
@@ -218,8 +207,7 @@ double sumfunc(Sheet *sheet, Point ul, Point dr)
 /* Count the number of specified cells inside the area with upper left
  * corner <ul> and lower right corner <dr>.
  */
-double countfunc(Sheet *sheet, Point ul, Point dr)
-{
+double countfunc(Sheet *sheet, Point ul, Point dr) {
     (void) sheet;  // remove this line
     (void) ul;  // remove this line
     (void) dr;  // remove this line
