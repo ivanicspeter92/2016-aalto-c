@@ -61,13 +61,18 @@ Sheet *create_sheet(unsigned int xsize, unsigned int ysize) {
     return NULL;
 }
 
+void free_cells(Cell** cells, unsigned int length) {
+    for(unsigned int i = 0; i < length; i++) {
+        free(cells[i]);
+    }
+    
+    free(cells);
+}
+
 /* Releases the memory allocated for sheet.
  */
 void free_sheet(Sheet *sheet) {
-    for(unsigned int i = 0; i < sheet->ysize; i++) {
-        free(sheet->cells[i]);
-    }
-    free(sheet->cells);
+    free_cells(sheet->cells, sheet->ysize);
     free(sheet);
 }
 
