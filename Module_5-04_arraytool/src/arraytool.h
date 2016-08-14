@@ -2,7 +2,7 @@
 #define AALTO_ARRAYTOOL_H
 
 #define CHECK(cond, msg) if (!(cond)) printf("%s", msg);
-
-#define MAKE_ARRAY(type, n) malloc(n* sizeof(type));
+#define MAKE_ARRAY(type, n) malloc(n * sizeof(type));
+#define ARRAY_IDX(type, array, i) *((type*)(array) + i)
 
 #endif
