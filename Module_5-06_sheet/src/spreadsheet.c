@@ -15,11 +15,6 @@ const struct {
     { NULL, NULL }
 };
 
-//
-//void create_cell(Cell cell) {
-//    cell.type = UNSPEC;
-//}
-
 void create_cells(Cell* cells, unsigned int how_many) {
     for(unsigned int i = 0; i < how_many; i++) {
         cells[i].type = UNSPEC;
