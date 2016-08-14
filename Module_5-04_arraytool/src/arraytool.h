@@ -3,4 +3,6 @@
 
 #define CHECK(cond, msg) if (!(cond)) printf("%s", msg);
 
+#define MAKE_ARRAY(type, n) malloc(n* sizeof(type));
+
 #endif
