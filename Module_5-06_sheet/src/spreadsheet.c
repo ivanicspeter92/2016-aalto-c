@@ -4,6 +4,7 @@
 #include <string.h>
 #include "spreadsheet.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 const struct {
     char *name;
@@ -155,9 +156,18 @@ void print_sheet(Sheet *sheet) {
 /* Set the content of location <p> in spreadsheet to constant <value>
  */
 void set_value(Sheet *sheet, Point p, double value) {
-    (void) sheet;  // remove this line
-    (void) p;  // remove this line
-    (void) value;  // remove this line
+    Cell* cell = get_cell(sheet, p);
+    
+    if (cell != NULL) {
+        cell->un.value = value;
+        cell->type = VALUE;
+    }
+}
+
+bool point_exist_in_sheet(Point point, Sheet* sheet) {
+    if (point.x < sheet->xsize && point.y < sheet->ysize)
+        return true;
+    return false;
 }
 
 /* Set the content of location <p> in spreadsheet to given function.
@@ -166,11 +176,14 @@ void set_value(Sheet *sheet, Point p, double value) {
  * is applied.
  */
 void set_func(Sheet *sheet, Point p, double (*func)(Sheet *, Point, Point), Point ul, Point dr) {
-    (void) sheet;  // remove this line
-    (void) p;  // remove this line
-    (void) func;  // remove this line
-    (void) ul;  // remove this line
-    (void) dr;  // remove this line
+    Cell* cell = get_cell(sheet, p);
+    
+    if (cell != NULL && point_exist_in_sheet(ul, sheet) && point_exist_in_sheet(dr, sheet)) {
+        cell->un.func.upleft = ul;
+        cell->un.func.downright = dr;
+        cell->un.func.fptr = func;
+        cell->type = FUNC;
+    }
 }
 
 /* Evaluate the content of cell at location <p>.
