@@ -234,7 +234,7 @@ double maxfunc(Sheet *sheet, Point ul, Point dr) {
  * lower right corner <dr>, and return the result.
  */
 double sumfunc(Sheet *sheet, Point ul, Point dr) {
-    Point current_point = ul;
+    Point current_point;
     double sum = 0;
     double cell_value;
     
@@ -251,6 +251,12 @@ double sumfunc(Sheet *sheet, Point ul, Point dr) {
     }
     
     return sum;
+}
+
+bool has_content(Cell cell) {
+    if (cell.type == UNSPEC)
+        return false;
+    return true;
 }
 
 /* Count the number of specified cells inside the area with upper left
