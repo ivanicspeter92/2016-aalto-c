@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 #include "spreadsheet.h"
+#include <stdlib.h>
 
 const struct {
     char *name;
@@ -14,33 +15,71 @@ const struct {
     { NULL, NULL }
 };
 
+//
+//void create_cell(Cell cell) {
+//    cell.type = UNSPEC;
+//}
+
+//void create_cells(Cell* cells, unsigned int how_many) {
+//    for(unsigned int i = 0; i < how_many; i++) {
+//        cells[i]->type = UNSPEC;
+//    }
+//}
 
 /* Creates a new spreadsheet with given dimensions.
  * Returns pointer to the allocated Sheet structure.
  */
-Sheet *create_sheet(unsigned int xsize, unsigned int ysize)
-{
-    (void) xsize;  // remove this line
-    (void) ysize;  // remove this line
-    return NULL;  // replace this line
+Sheet *create_sheet(unsigned int xsize, unsigned int ysize) {
+    Sheet* sheet_pointer = malloc(sizeof(Sheet));
+    
+    if (sheet_pointer != NULL) {
+        sheet_pointer->xsize = xsize;
+        sheet_pointer->ysize = ysize;
+        sheet_pointer->cells = malloc(ysize * sizeof(Cell*));
+        
+        if (sheet_pointer->cells == NULL) {
+            free(sheet_pointer);
+            return NULL;
+        }
+        for(unsigned int i = 0; i < ysize; i++) {
+            sheet_pointer->cells[i] = malloc(xsize * sizeof(Cell));
+            
+            if(sheet_pointer->cells[i] == NULL) {
+                for(unsigned int j = 0; j < i; j++) {
+                    free(sheet_pointer->cells[j]);
+                }
+                return NULL;
+            }
+            for(unsigned int j = 0; j < xsize; j++) {
+                sheet_pointer->cells[i][j].type = UNSPEC;
+            }
+        }
+        
+        return sheet_pointer;
+    }
+    
+    return NULL;
 }
 
 /* Releases the memory allocated for sheet.
  */
-void free_sheet(Sheet *sheet)
-{
-    (void) sheet;  // remove this line
+void free_sheet(Sheet *sheet) {
+    for(unsigned int i = 0; i < sheet->ysize; i++) {
+        free(sheet->cells[i]);
+    }
+    free(sheet->cells);
+    free(sheet);
 }
 
 
 /* Returns pointer to the Cell structure at given location <p>
  * in spreadsheet <sheet>.
  */
-Cell *get_cell(Sheet *sheet, Point p)
-{
-    (void) sheet;  // remove this line
-    (void) p;  // remove this line
-    return NULL;  // replace this line
+Cell *get_cell(Sheet *sheet, Point p) {
+    if (p.x >= sheet->xsize || p.y >= sheet->ysize)// || p.y < 0 || p.x < 0 )
+        return NULL;
+    
+    return &(sheet->cells[p.y][p.x]);
 }
 
 /* Convert two-letter user input into coordinates of type Point.
