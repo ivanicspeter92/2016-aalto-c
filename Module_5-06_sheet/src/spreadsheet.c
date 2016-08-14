@@ -212,12 +212,12 @@ double eval_cell(Sheet *sheet, Point p) {
  * and lower right corner <dl>, and return it.
  */
 double maxfunc(Sheet *sheet, Point ul, Point dr) {
-    Point current_point = ul;
-    double max = eval_cell(sheet, current_point);
+    Point current_point;
+    double max = DBL_MIN;
     double cell_value;
     
-    for(unsigned int i = ul.y; i < dr.y; i++) {
-        for(unsigned int j = ul.x + 1; j < dr.x; j++) {
+    for(unsigned int i = ul.y; i <= dr.y; i++) {
+        for(unsigned int j = ul.x; j <= dr.x; j++) {
             current_point.y = i;
             current_point.x = j;
             cell_value = eval_cell(sheet, current_point);
@@ -234,10 +234,23 @@ double maxfunc(Sheet *sheet, Point ul, Point dr) {
  * lower right corner <dr>, and return the result.
  */
 double sumfunc(Sheet *sheet, Point ul, Point dr) {
-    (void) sheet;  // remove this line
-    (void) ul;  // remove this line
-    (void) dr;  // remove this line
-    return NAN;  // replace this line
+    Point current_point = ul;
+    double sum = 0;
+    double cell_value;
+    
+    for(unsigned int i = ul.y; i <= dr.y; i++) {
+        for(unsigned int j = ul.x; j <= dr.x; j++) {
+            current_point.y = i;
+            current_point.x = j;
+            cell_value = eval_cell(sheet, current_point);
+            
+            printf("SUM: %f", sum);
+            if (isnan(cell_value) == false)
+                sum += cell_value;
+        }
+    }
+    
+    return sum;
 }
 
 /* Count the number of specified cells inside the area with upper left
