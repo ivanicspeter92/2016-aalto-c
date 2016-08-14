@@ -26,6 +26,14 @@ const struct {
 //    }
 //}
 
+void free_cells(Cell** cells, unsigned int length) {
+    for(unsigned int i = 0; i < length; i++) {
+        free(cells[i]);
+    }
+    
+    free(cells);
+}
+
 /* Creates a new spreadsheet with given dimensions.
  * Returns pointer to the allocated Sheet structure.
  */
@@ -45,9 +53,7 @@ Sheet *create_sheet(unsigned int xsize, unsigned int ysize) {
             sheet_pointer->cells[i] = malloc(xsize * sizeof(Cell));
             
             if(sheet_pointer->cells[i] == NULL) {
-                for(unsigned int j = 0; j < i; j++) {
-                    free(sheet_pointer->cells[j]);
-                }
+                free_cells(sheet_pointer->cells, sheet_pointer->ysize);
                 return NULL;
             }
             for(unsigned int j = 0; j < xsize; j++) {
@@ -59,14 +65,6 @@ Sheet *create_sheet(unsigned int xsize, unsigned int ysize) {
     }
     
     return NULL;
-}
-
-void free_cells(Cell** cells, unsigned int length) {
-    for(unsigned int i = 0; i < length; i++) {
-        free(cells[i]);
-    }
-    
-    free(cells);
 }
 
 /* Releases the memory allocated for sheet.
