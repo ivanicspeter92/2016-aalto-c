@@ -20,11 +20,11 @@ const struct {
 //    cell.type = UNSPEC;
 //}
 
-//void create_cells(Cell* cells, unsigned int how_many) {
-//    for(unsigned int i = 0; i < how_many; i++) {
-//        cells[i]->type = UNSPEC;
-//    }
-//}
+void create_cells(Cell* cells, unsigned int how_many) {
+    for(unsigned int i = 0; i < how_many; i++) {
+        cells[i].type = UNSPEC;
+    }
+}
 
 void free_cells(Cell** cells, unsigned int length) {
     for(unsigned int i = 0; i < length; i++) {
@@ -56,9 +56,7 @@ Sheet *create_sheet(unsigned int xsize, unsigned int ysize) {
                 free_cells(sheet_pointer->cells, sheet_pointer->ysize);
                 return NULL;
             }
-            for(unsigned int j = 0; j < xsize; j++) {
-                sheet_pointer->cells[i][j].type = UNSPEC;
-            }
+            create_cells(sheet_pointer->cells[i], xsize);
         }
         
         return sheet_pointer;
