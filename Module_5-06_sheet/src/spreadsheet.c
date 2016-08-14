@@ -5,6 +5,7 @@
 #include "spreadsheet.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <float.h>
 
 const struct {
     char *name;
@@ -211,10 +212,22 @@ double eval_cell(Sheet *sheet, Point p) {
  * and lower right corner <dl>, and return it.
  */
 double maxfunc(Sheet *sheet, Point ul, Point dr) {
-    (void) sheet;  // remove this line
-    (void) ul;  // remove this line
-    (void) dr;  // remove this line
-    return NAN;  // replace this line
+    Point current_point = ul;
+    double max = eval_cell(sheet, current_point);
+    double cell_value;
+    
+    for(unsigned int i = ul.y; i < dr.y; i++) {
+        for(unsigned int j = ul.x + 1; j < dr.x; j++) {
+            current_point.y = i;
+            current_point.x = j;
+            cell_value = eval_cell(sheet, current_point);
+                    
+            if(max < cell_value)
+                max = cell_value;
+        }
+    }
+    
+    return max;
 }
 
 /* Calculate the sum of values within upper left corner <ul> and
