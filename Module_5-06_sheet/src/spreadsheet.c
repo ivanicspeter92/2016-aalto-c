@@ -244,7 +244,6 @@ double sumfunc(Sheet *sheet, Point ul, Point dr) {
             current_point.x = j;
             cell_value = eval_cell(sheet, current_point);
             
-            printf("SUM: %f", sum);
             if (isnan(cell_value) == false)
                 sum += cell_value;
         }
@@ -263,8 +262,22 @@ bool has_content(Cell cell) {
  * corner <ul> and lower right corner <dr>.
  */
 double countfunc(Sheet *sheet, Point ul, Point dr) {
-    (void) sheet;  // remove this line
-    (void) ul;  // remove this line
-    (void) dr;  // remove this line
-    return NAN;  // replace this line
+    Point current_point;
+    double count = 0;
+    double cell_value;
+    
+    for(unsigned int i = ul.y; i <= dr.y; i++) {
+        for(unsigned int j = ul.x; j <= dr.x; j++) {
+            if (has_content(sheet->cells[i][j])) {
+                current_point.y = i;
+                current_point.x = j;
+                cell_value = eval_cell(sheet, current_point);
+
+                if (isnan(cell_value) == false)
+                    count++;
+            }
+        }
+    }
+    
+    return count;
 }
