@@ -192,9 +192,19 @@ void set_func(Sheet *sheet, Point p, double (*func)(Sheet *, Point, Point), Poin
  * If cell is unspecified or location out of bounds, NAN is returned.
  */
 double eval_cell(Sheet *sheet, Point p) {
-    (void) sheet;  // remove this line
-    (void) p;  // remove this line
-    return NAN;  // replace this line
+    if(point_exist_in_sheet(p, sheet)) {
+        Cell* cell = get_cell(sheet, p);
+        
+        switch (cell->type) {
+            case VALUE:
+                return cell->un.value;
+            case FUNC:
+                return cell->un.func.fptr(sheet, cell->un.func.upleft, cell->un.func.downright);
+            case UNSPEC:
+                return NAN;
+        }
+    }
+    return NAN;
 }
 
 /* Calculate the maximum value within area with upper left corner <ul>
