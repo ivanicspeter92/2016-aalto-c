@@ -9,7 +9,8 @@ valgrind.log
 */nbproject/private
 nbproject/*
 main
-test
+test/test
+test/test.dSYM
 mockoutput
 tmc_available_points.txt
 tmc_test_results.xml
