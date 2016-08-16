@@ -32,41 +32,72 @@ char *read_file(const char *filename) {
     }
 }
 
-int remove_comment_lines(char* input) {
+char* remove_characters(char* from_string, int from_index, int until_index) {
+//    printf("String before removal: %s", from_string);
+    int comment_length = until_index - from_index, new_string_length = 0, from_string_length = strlen(from_string);
+    char* new_string = malloc(sizeof(char) * (strlen(from_string) - comment_length)); 
+    
+    if (new_string != NULL) {
+        for(int i = 0; i < from_string_length; i++) {
+            if (i < from_index || i > until_index) { 
+                new_string[new_string_length] = from_string[i];
+                new_string_length++;
+            }
+        }
+//        printf("String after removal: %s", new_string);
+        new_string[new_string_length] = '\0';
+        free(from_string);
+        return new_string;
+    }
+    return NULL;
+}
+
+char* remove_comment_lines(char* input) {
     char startswith[2] = "//";
-    char endswith = '\n'; 
+    char endswith = '\n';
     
     for (int i = 1; i < strlen(input); i++) {
        if(input[i - 1] == startswith[0] && input[i] == startswith[1]) {
-           printf("Comment line starting at: [%d]\n", i - 1);
+//           printf("Comment line starting at: [%d]\n", i - 1);
            
            for(int j = i + 1; j < strlen(input); j++) { 
                if(input[j] == endswith) {
-                   printf("Comment line ending at: [%d]\n", j);
+//                   printf("Comment line ending at: [%d]\n", j);
+                   int remove_from = i - 1;
+                   int remove_until = j;
+                   
+                   input = remove_characters(input, remove_from, remove_until); 
                    break;
                }
            }
        } 
     }
+    
+    return input;
 }
 
-int remove_comment_blocks(char* input) {
+char* remove_comment_blocks(char* input) {
     char startswith[2] = "/*";
     char endswith[2] = "*/"; 
     
-    
     for (int i = 1; i < strlen(input); i++) {
        if(input[i - 1] == startswith[0] && input[i] == startswith[1]) {
-           printf("Comment block starting at: [%d]\n", i - 1);
+//           printf("Comment block starting at: [%d]\n", i - 1);
            
            for(int j = i + 1; j < strlen(input); j++) { 
                if(input[j - 1] == endswith[0] && input[j] == endswith[1]) {
-                   printf("Comment block ending at: [%d]\n", j);
+//                   printf("Comment block ending at: [%d]\n", j);
+                   int remove_from = i - 1;
+                   int remove_until = j;
+                   
+                   input = remove_characters(input, remove_from, remove_until); 
                    break;
                }
            }
        } 
     }
+    
+    return input;
 }
 
 /* Remove C comments from the program stored in memory block <input>.
@@ -75,8 +106,8 @@ int remove_comment_blocks(char* input) {
  * the function.
  */
 char *remove_comments(char *input) {
-    remove_comment_lines(input);
-    remove_comment_blocks(input);
+    input = remove_comment_lines(input);
+    input = remove_comment_blocks(input);
     
     return input;
 }
