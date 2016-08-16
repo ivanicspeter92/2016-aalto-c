@@ -32,14 +32,53 @@ char *read_file(const char *filename) {
     }
 }
 
+int remove_comment_lines(char* input) {
+    char startswith[2] = "//";
+    char endswith = '\n'; 
+    
+    for (int i = 1; i < strlen(input); i++) {
+       if(input[i - 1] == startswith[0] && input[i] == startswith[1]) {
+           printf("Comment line starting at: [%d]\n", i - 1);
+           
+           for(int j = i + 1; j < strlen(input); j++) { 
+               if(input[j] == endswith) {
+                   printf("Comment line ending at: [%d]\n", j);
+                   break;
+               }
+           }
+       } 
+    }
+}
+
+int remove_comment_blocks(char* input) {
+    char startswith[2] = "/*";
+    char endswith[2] = "*/"; 
+    
+    
+    for (int i = 1; i < strlen(input); i++) {
+       if(input[i - 1] == startswith[0] && input[i] == startswith[1]) {
+           printf("Comment block starting at: [%d]\n", i - 1);
+           
+           for(int j = i + 1; j < strlen(input); j++) { 
+               if(input[j - 1] == endswith[0] && input[j] == endswith[1]) {
+                   printf("Comment block ending at: [%d]\n", j);
+                   break;
+               }
+           }
+       } 
+    }
+}
+
 /* Remove C comments from the program stored in memory block <input>.
  * Returns pointer to code after removal of comments.
  * Calling code is responsible of freeing only the memory block returned by
  * the function.
  */
 char *remove_comments(char *input) {
-    (void) input;
-    return NULL;
+    remove_comment_lines(input);
+    remove_comment_blocks(input);
+    
+    return input;
 }
 
 /* Indent the C-code at memory block <indent>. String <pad> represents
