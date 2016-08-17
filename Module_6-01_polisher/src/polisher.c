@@ -112,6 +112,67 @@ char *remove_comments(char *input) {
     return input;
 }
 
+int count_given_characters_in_string(char c, char* string) {
+    int count = 0;
+    for (int i = 0; i < strlen(string); i++) {
+        if(string[i] == c) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int line_count(const char* string) {
+    if(strlen(string) == 0)
+        return 0;
+    return count_given_characters_in_string('\n', string) + 1;
+}
+
+int* sum_indents_for_lines(char *input, int number_of_lines) {
+    int indent_level = 0, line_number = 0;
+    int result[number_of_lines];
+    
+    result[0] = 0;
+    for(int i = 0; i < strlen(input); i++) {
+        switch(input[i]) {
+            case '{':
+                indent_level++;
+                break;
+            case '}':
+                indent_level--;
+                break;
+            case '\n': 
+                line_number++; 
+                result[line_number] = indent_level;
+                break;
+        }
+    }
+    return result;
+}
+
+int sum_indents(char *input) {
+    int line_number = 0, indent_level = 0, count = 0;
+    
+    printf("Line %d @ Indent: %d\n", line_number, indent_level);
+    for(int i = 0; i < strlen(input); i++) {
+        switch(input[i]) {
+            case '{':
+                indent_level++;
+                break;
+            case '}':
+                indent_level--;
+                break;
+            case '\n': 
+                line_number++; 
+                count += indent_level;
+                printf("Line %d @ Indent: %d\n", line_number, indent_level);
+                break;
+        }
+    }
+    printf("In total %d indentations to be done\n", count);
+    return count;
+}
+
 /* Indent the C-code at memory block <indent>. String <pad> represents
  * one block of indentation. Only opening curly braces '{' increase the
  * indentation level, and closing curly braces '}' decrease the indentation level.
@@ -120,7 +181,11 @@ char *remove_comments(char *input) {
  * the function.
  */
 char *indent(char *input, const char *pad) {
-    (void) input;
-    (void) pad;
-    return NULL;
+    int indents_to_be_applied = sum_indents(input), lines_in_file = line_count(input);
+    char* new_pointer = realloc(input, sizeof(input) + (sizeof(pad) * indents_to_be_applied));
+    
+    if (new_pointer != NULL) {
+        int* indent_levels = sum_indents_for_lines(input, lines_in_file);
+        
+    }
 }
