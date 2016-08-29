@@ -32,28 +32,28 @@ int to_base64(const char *dst_file, const char *src_file) {
         char buffer[3 + 1];
         while (fgets(buffer, sizeof(buffer), source_filestream) != NULL) {
             count += strlen(buffer);
-                int index = (buffer[0] & 0xFC) >> 2;
+            int index = (buffer[0] & 0xFC) >> 2;
+            fputc(encoding[index], output_filestream);
+
+            index = (buffer[0] & 0x03) << 4;
+            index = index | ((buffer[1] & 0xF0) >> 4); 
+            fputc(encoding[index], output_filestream);
+
+            if(strlen(buffer) > 1) {
+                index = ((buffer[1] & 0x0F) << 2);
+                index = index | (buffer[2] >> 6); 
                 fputc(encoding[index], output_filestream);
-                
-                index = (buffer[0] & 0x03) << 4;
-                index = index | ((buffer[1] & 0xF0) >> 4); 
-                fputc(encoding[index], output_filestream);
-                
-                if(strlen(buffer) > 1) {
-                    index = ((buffer[1] & 0x0F) << 2);
-                    index = index | (buffer[2] >> 6); 
+
+                if(strlen(buffer) > 2) {
+                    index = (buffer[2] & 0x3F); 
                     fputc(encoding[index], output_filestream);
-                    
-                    if(strlen(buffer) > 2) {
-                        index = (buffer[2] & 0x3F); 
-                        fputc(encoding[index], output_filestream);
-                    } else {
-                        fputc('=', output_filestream);
-                    }
                 } else {
                     fputc('=', output_filestream);
-                    fputc('=', output_filestream);
                 }
+            } else {
+                fputc('=', output_filestream);
+                fputc('=', output_filestream);
+            }
         }
         
         fclose(source_filestream);
