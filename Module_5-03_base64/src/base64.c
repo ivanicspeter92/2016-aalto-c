@@ -24,39 +24,42 @@ int index_in_base64(char c) {
  * for example if opening of <src_file> did not succeed.
  */
 int to_base64(const char *dst_file, const char *src_file) {
-    printf("to_base64()\n");
-    FILE* file = fopen(src_file, "r");
+    FILE* source_filestream = fopen(src_file, "r");
+    FILE* output_filestream = fopen(dst_file, "w");
     int count = 0;
     
-    if (file != NULL) {
+    if (source_filestream != NULL && output_filestream != NULL) {
         char buffer[3 + 1];
-        while (fgets(buffer, sizeof(buffer), file) != NULL) {
+        while (fgets(buffer, sizeof(buffer), source_filestream) != NULL) {
             count += strlen(buffer);
-            if(strlen(buffer) % 3 != 0) {
-                // add padding
-//                printf("padding should be added\n");
-            } else {
-//                printf("padding should not be added\n");
                 int index = (buffer[0] & 0xFC) >> 2;
-                printf("%c", encoding[index]);
+                fputc(encoding[index], output_filestream);
                 
                 index = (buffer[0] & 0x03) << 4;
-                index = index | ((buffer[1] & 0xF0) >> 4);
-                printf("%c", encoding[index]);
+                index = index | ((buffer[1] & 0xF0) >> 4); 
+                fputc(encoding[index], output_filestream);
                 
-                index = ((buffer[1] & 0x0F) << 2);
-                index = index | (buffer[2] >> 6);
-                printf("%c", encoding[index]);
-                
-                index = (buffer[2] & 0x3F);
-                printf("%c\n", encoding[index]);
-            }
+                if(strlen(buffer) > 1) {
+                    index = ((buffer[1] & 0x0F) << 2);
+                    index = index | (buffer[2] >> 6); 
+                    fputc(encoding[index], output_filestream);
+                    
+                    if(strlen(buffer) > 2) {
+                        index = (buffer[2] & 0x3F); 
+                        fputc(encoding[index], output_filestream);
+                    } else {
+                        fputc('=', output_filestream);
+                    }
+                } else {
+                    fputc('=', output_filestream);
+                    fputc('=', output_filestream);
+                }
         }
         
-        fclose(file);
+        fclose(source_filestream);
+        fclose(output_filestream);
         return count;
     }
-    (void) dst_file;
     return -1;
 }
 
