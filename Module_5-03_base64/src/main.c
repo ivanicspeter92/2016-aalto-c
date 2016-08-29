@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
      * files. If you run on command line, this function optionally reads
      * the filename from command line, if one is given. */
     
-    char *filename = "testi.txt";
+    char *filename = "src/testi.txt";
     if (argc > 1) {
         filename = argv[1];
     }
