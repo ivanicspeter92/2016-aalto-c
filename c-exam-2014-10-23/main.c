@@ -33,11 +33,16 @@ float average(float* array, int elements) {
     return 0;
 }
 
+void print_result(const float average) {
+    printf("%f.2", average);
+}
+
 /*
  * Calculate the average of floating-point values entered as argument at the command line and prints out the result with 2 significant decimal digits. 
  * If no values were given, inform the user. Do not assume a fixed number of input values. 
  * Your program should work with any number of arguments.
  */
 int main(int argc, char** argv) {
+    
 }
 
