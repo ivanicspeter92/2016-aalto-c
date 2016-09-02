@@ -16,3 +16,12 @@ tmc_available_points.txt
 tmc_test_results.xml
 mockinput
 configurations.xml
+*/.dep.inc
+*/Makefile
+*/nbproject/Makefile-Debug.mk
+*/nbproject/Makefile-impl.mk
+*/nbproject/Makefile-Release.mk
+*/nbproject/Makefile-variables.mk
+*/nbproject/Package-Debug.bash
+*/nbproject/Package-Release.bash
+*/nbproject/project.xml
