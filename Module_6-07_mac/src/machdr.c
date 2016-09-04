@@ -6,14 +6,15 @@
  * means it is not set.
  */
 
-int get_proto_version(const unsigned char *header)
-{
-    (void) header;
-    return 0;
+const unsigned int frame_length = 36;
+
+int get_proto_version(const unsigned char *header) {
+    int result = header[0] >> 6;
+    
+    return result;
 }
 
-int get_type(const unsigned char *header)
-{
+int get_type(const unsigned char *header) {
     (void) header;
     return 0;
 }
