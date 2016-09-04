@@ -15,8 +15,9 @@ int get_proto_version(const unsigned char *header) {
 }
 
 int get_type(const unsigned char *header) {
-    (void) header;
-    return 0;
+    int result = (header[0] & 0x30) >> 4;
+    
+    return result;
 }
 
 int get_subtype(const unsigned char *header)
