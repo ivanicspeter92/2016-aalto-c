@@ -21,8 +21,9 @@ int get_type(const unsigned char *header) {
 }
 
 int get_subtype(const unsigned char *header) {
-    (void) header;
-    return 0;
+    int result = header[0] & 0x0F;
+    
+    return result;
 }
 
 int get_to_ds(const unsigned char *header) {
