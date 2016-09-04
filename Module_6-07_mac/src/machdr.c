@@ -62,36 +62,29 @@ int get_more_data(const unsigned char *header) {
  */
 
 void set_proto_version(unsigned char *header, int version) {
-    (void) header;
-    (void) version;
+    header[0] = header[0] | (version << 6);
 }
 
 void set_type(unsigned char *header, int type) {
-    (void) header;
-    (void) type;
+    header[0] = header[0] | (type << 4);
 }
 
 void set_subtype(unsigned char *header, int subtype) {
-    (void) header;
-    (void) subtype;
+    header[0] = header[0] | subtype;
 }
 
 void set_to_ds(unsigned char *header, int flag) {
-    (void) header;
-    (void) flag;
+    header[1] = header[1] | (flag << 7);
 }
 
 void set_from_ds(unsigned char *header, int flag) {
-    (void) header;
-    (void) flag;
+    header[1] = header[1] | (flag << 6);
 }
 
-void set_retry(unsigned char *header, int flag) {
-    (void) header;
-    (void) flag;
+void set_retry(unsigned char *header, int flag) { 
+    header[1] = header[1] | (flag << 4);
 }
 
 void set_more_data(unsigned char *header, int flag) {
-    (void) header;
-    (void) flag;
+    header[1] = header[1] | (flag << 2);
 }
