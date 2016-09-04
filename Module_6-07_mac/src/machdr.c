@@ -8,6 +8,20 @@
 
 const unsigned int frame_length = 36;
 
+int is_bit_set(unsigned char value, unsigned int bit_number) {
+    switch(bit_number) {
+        case 1: return ((value & 0x80));
+        case 2: return ((value & 0x40));
+        case 3: return ((value & 0x20));
+        case 4: return ((value & 0x10));
+        case 5: return ((value & 0x08));
+        case 6: return ((value & 0x04));
+        case 7: return ((value & 0x02));
+        case 8: return ((value & 0x01));
+        default: return 0;
+    }
+}
+
 int get_proto_version(const unsigned char *header) {
     int result = header[0] >> 6;
     
@@ -27,23 +41,19 @@ int get_subtype(const unsigned char *header) {
 }
 
 int get_to_ds(const unsigned char *header) {
-    (void) header;
-    return 0;
+    return is_bit_set(header[1], 1);
 }
 
 int get_from_ds(const unsigned char *header) {
-    (void) header;
-    return 0;
+    return is_bit_set(header[1], 2);
 }
 
 int get_retry(const unsigned char *header) {
-    (void) header;
-    return 0;
+    return is_bit_set(header[1], 4);
 }
 
 int get_more_data(const unsigned char *header) {
-    (void) header;
-    return 0;
+    return is_bit_set(header[1], 6);
 }
 
 /* b) Implement all set_* functions that set the values of respective
